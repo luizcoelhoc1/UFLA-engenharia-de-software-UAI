@@ -1,7 +1,17 @@
 #UAI
 
-O que é a UAI: 
-O UAI é uma empresa de animação que requisitou um sistema gerenciador de trabalhadores, negociações e contratos do estúdio.
+O que é a UAI:
+O UAI é uma empresa de animação que requisitou um sistema gerenciador de projetos e negociações.
 
-O que será desenvolvido: 
-Será desenvolvido um conjunto de sistemas de CRUDs à fim de solucionar a requisição da UAI.
+O que será desenvolvido:
+Será desenvolvido uma plataforma que possibilitará a interação da empresa com seus possíveis financiadores.
+
+Principais funcionalidades:
+- Gerenciar projetos de animação
+- Gerenciar funcionários
+- Gerenciar financiadores
+
+Usuários:
+- Finciadores
+- Trabalhadores
+- Moderators
