@@ -4,4 +4,4 @@ Financiador: é qualquer pessoa física ou jurídica que apoia financeiramente u
 
 Funcionário: é a mão-de-obra do projeto. São encarregados por desenvolver os projetos nas áreas em que forem requisitadas pelos administradores.
 
-Projeto: é um conjunto de planos com metas estabelecidas para criar uma animação. Para que o objetivo final do projeto seja alcançado (chegar ao consumidor) recursos humanos, financeiros e técnicos precisam estar à disposição para que haja êxito.
+Projeto: é um conjunto de planos com metas estabelecidas para criar uma animação. Para que o objetivo final do projeto tenha êxito (chegar ao consumidor) recursos humanos, financeiros e técnicos precisam estar à disposição.
