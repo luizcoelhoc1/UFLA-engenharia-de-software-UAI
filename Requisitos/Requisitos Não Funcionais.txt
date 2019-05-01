@@ -1,1 +1,2 @@
 ﻿#RNF1 - Todo e qualquer arquivo do projeto do software deve estar em UTF-8
+#RNF2 - O dinheiro dos Financiadores deve ser devolvido em sua carteira caso o projeto atinja a data limite e não tenha atingido a meta
