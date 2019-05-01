@@ -2,9 +2,9 @@
 #RF02 - Administradores cadastram outros Administradores no sistema
 #RF03 - Administradores cadastram Funcionários no sistema
 #RF04 - Administradores, Funcionários e Financiadores alteram seus dados pessoais no sistema
-#RF05 - Administradores criam projetos no sistema
-#RF06 - Financiador adicionam dinheiro a sua carteira virtual
-#RF07 - Financiador veem todos os projetos criados pelos Administradores
-#RF08 - Financiador podem apoiar qualquer projetos criado pelos Administradores com meta em aberto
-#RF09 - Os Administradores devem designar Funcionários caso o projeto tenha sido aprovado
+#RF05 - Somente administradores criam projetos no sistema
+#RF06 - Financiadores adicionam dinheiro a sua carteira virtual
+#RF07 - Financiadores veem todos os projetos 
+#RF08 - Financiadores podem apoiar quaisquer projetos com meta em aberto
+#RF09 - Administradores devem designar Funcionários caso o projeto tenha sido aprovado
 #RF10 - Administradores, Funcionários e Financiadores fazem login
