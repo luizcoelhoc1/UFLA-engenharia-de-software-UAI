@@ -12,6 +12,6 @@ Principais funcionalidades:
 - Gerenciar financiadores
 
 Usuários:
-- Finciadores
+- Finaciadores
 - Trabalhadores
-- Moderators
+- Administradores
