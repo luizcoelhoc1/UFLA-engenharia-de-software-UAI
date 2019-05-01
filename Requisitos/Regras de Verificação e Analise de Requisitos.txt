@@ -1,1 +1,9 @@
-Teste inicial
+-Defina somente um requisito por vez
+-Evite contextos desnecessários em relação ao software
+	Exemplo de má utilização: Nosso funcionário avaliará quanto de dinheiro a empresa tem para depois...
+-Não pode ter as Adjetivos nos requisitos.
+-Toda e qualquer palavra que utilize tempo, deve-se explicitar quanto de tempo, não apenas palavras subjetivas como: frequentimente, geralmente, tipicamente.
+-Evitar qualquer ambiguidade.
+-Evitar palavras que causam ambiguidades como: Talvez, provavelmente, possívelmente, entretanto e contudo.
+-Ter um glossário com as palavras mais usadas
+-Usar palavras que são jargões da empresa, para facilitar o entedimento. Essas palavras devem ser definidas no glossário.
