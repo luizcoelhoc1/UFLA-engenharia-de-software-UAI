@@ -1,9 +1,9 @@
--Defina somente um requisito por vez
--Evite contextos desnecess·rios em relaÁ„o ao software
-	Exemplo de m· utilizaÁ„o: Nosso funcion·rio avaliar· quanto de dinheiro a empresa tem para depois...
--N„o pode ter as Adjetivos nos requisitos.
--Toda e qualquer palavra que utilize tempo, deve-se explicitar quanto de tempo, n„o apenas palavras subjetivas como: frequentimente, geralmente, tipicamente.
+Ôªø-Defina somente um requisito por vez
+-Evite contextos desnecess√°rios em rela√ß√£o ao software
+	Exemplo de m√° utiliza√ß√£o: Nosso funcion√°rio avaliar√° quanto de dinheiro a empresa tem para depois...
+-N√£o pode ter as Adjetivos nos requisitos.
+-Toda e qualquer palavra que utilize tempo, deve-se explicitar quanto de tempo, n√£o apenas palavras subjetivas como: frequentimente, geralmente, tipicamente.
 -Evitar qualquer ambiguidade.
--Evitar palavras que causam ambiguidades como: Talvez, provavelmente, possÌvelmente, entretanto e contudo.
--Ter um gloss·rio com as palavras mais usadas
--Usar palavras que s„o jargıes da empresa, para facilitar o entedimento. Essas palavras devem ser definidas no gloss·rio.
+-Evitar palavras que causam ambiguidades como: Talvez, provavelmente, poss√≠velmente, entretanto e contudo.
+-Ter um gloss√°rio com as palavras mais usadas
+-Usar palavras que s√£o jarg√µes da empresa, para facilitar o entedimento. Essas palavras devem ser definidas no gloss√°rio.
