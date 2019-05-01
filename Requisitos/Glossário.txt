@@ -1,0 +1,7 @@
+﻿Administrador: é quem gerencia o sistema e o corpo de Funcionários. Cria e aprova projetos; designa cada função dos incubidos pelo desenvolvimento do projeto (Funcionários)
+
+Financiador: é qualquer pessoa física ou jurídica que apoia financeiramente um ou mais projetos da empresa, doando dinheiro para a empresa através da “carteira virtual” 
+
+Funcionário: é a mão-de-obra do projeto. São encarregados por desenvolver os projetos nas áreas em que forem requisitadas pelos administradores.
+
+Projeto: é um conjunto de planos com metas estabelecidas para criar uma animação. Para que o objetivo final do projeto seja alcançado (chegar ao consumidor) recursos humanos, financeiros e técnicos precisam estar à disposição para que haja êxito.
