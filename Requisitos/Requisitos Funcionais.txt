@@ -5,6 +5,6 @@
 #RF05 - Somente Administradores criam projetos no sistema
 #RF06 - Financiadores adicionam dinheiro a sua carteira virtual
 #RF07 - Financiadores veem todos os projetos 
-#RF08 - Financiadores podem apoiar quaisquer projetos com meta em aberto
+#RF08 - Financiadores podem apoiar financeiramente quaisquer projetos com meta em aberto
 #RF09 - Administradores devem designar Funcionários caso o projeto tenha sido aprovado
 #RF10 - Administradores, Funcionários e Financiadores fazem login
