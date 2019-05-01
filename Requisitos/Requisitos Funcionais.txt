@@ -1,7 +1,7 @@
 #RF01 - Qualquer pessoa pode se cadastrar como um Financiador
 #RF02 - Administradores podem cadastrar outros Administradores no sistema
 #RF03 - Administradores podem cadastrar Funcionários no sistema
-#RF04 - Administradores, Funcionários e Financiadores pode alterar seus dados pessoais no sistema
+#RF04 - Administradores, Funcionários e Financiadores podem alterar seus dados pessoais no sistema
 #RF05 - Administradores podem criar projetos ao sistema
 #RF06 - Financiador podem adicionar dinheiro a sua carteira virtual
 #RF07 - Financiador podem ver todos os projetos criados pelos Administradores
