@@ -1,1 +1,1 @@
-﻿
+﻿#RNF1 - Todo e qualquer arquivo do projeto do software deve estar em UTF-8
