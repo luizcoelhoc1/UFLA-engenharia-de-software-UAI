@@ -8,3 +8,5 @@
 #RF08 - Financiadores podem apoiar financeiramente quaisquer projetos com meta em aberto
 #RF09 - Administradores devem designar Funcionários caso o projeto tenha sido aprovado
 #RF10 - Administradores, Funcionários e Financiadores fazem login
+#RF11 - Administradores podem editar projetos existentes
+#RF12 - Administradores podem excluir projetos existentes
