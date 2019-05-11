@@ -8,3 +8,6 @@
 #RNF08 - Os campos de preenchimento que requisitarem um número de CPF, serão sempre validados para que assegure-se um CPF existente
 #RNF09 - O campo de preenchimento que requisitar "nome do projeto", na página de criação de um novo projeto, deverá ter no mímino 1 caractere e no máximo 100
 #RNF10 - O campo de preenchimento Gêneros e Autor, na página de criação de um novo projeto, pode ter um ou mais nomes separados por vírgula
+#RNF11 - O design do projeto deve ser feito utilizando o framework Bootstrap
+#RNF12 - O design do projeto deve ser responsívo para atender todas as plataformas que rodem html/javascript
+#RNF13 - O projeto deve ser feito utilizando a linguagem PHP para operações backend e criação das paginas front-end.
