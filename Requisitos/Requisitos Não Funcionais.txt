@@ -1,3 +1,10 @@
 ﻿#RNF01 - Todo e qualquer arquivo do projeto do software deve estar em UTF-8
-#RNF02 - O dinheiro dos Financiadores deve ser devolvido em sua carteira caso o projeto atinja a data limite e não tenha atingido a meta
+#RNF02 - O dinheiro dos Financiadores deve ser devolvido em sua carteira caso o projeto atinja a data limite (sempre 6 meses após a criação do projeto) e não tenha atingido a meta
 #RNF03 - A senha para criação de qualquer nova conta (Administrador, Funcionário e Financiador) deverá ter no mínimo 6 caracteres e no máximo 40
+#RNF04 - Será feita verificação de formatação dos emails, sempre que forem requisitados pelo sistema, para assegurar a validez do mesmo
+#RNF05 - Os campos de valores referentes a dinheiro no sistema, terão um intervalo de no mínimo 0,01 (0.01) e no máximo 1.000.000,00 (1000000000.00) 
+#RNF06 - Os campos de valores referentes a dinheiro no sistema terão sempre duas casas decimais
+#RNF07 - Nenhum campo de preenchimento de formulários no sistema poderá ser vazio (nulo)
+#RNF08 - Os campos de preenchimento que requisitarem um número de CPF, serão sempre validados para que assegure-se um CPF existente
+#RNF09 - O campo de preenchimento que requisitar "nome do projeto", na página de criação de um novo projeto, deverá ter no mímino 1 caractere e no máximo 100
+#RNF10 - O campo de preenchimento Gêneros e Autor, na página de criação de um novo projeto, pode ter um ou mais nomes separados por vírgula
