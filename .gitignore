@@ -1,0 +1,5 @@
+#arquivos temporarios do astah
+*.lock
+
+#arquivos de de atalho do windows
+*.atalho
