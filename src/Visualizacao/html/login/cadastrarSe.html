@@ -51,6 +51,15 @@
         padding-top: 10px;
         padding-bottom: 10px;
     }
+    
+    .block {
+        display: block;
+    }
+    
+    .none {
+        display: none;
+    }
+    
     .span-or {
         display: block;
         position: absolute;
@@ -92,22 +101,27 @@
                                 <h1>Criar sua conta UAI</h1>
                             </div>
                         </div>
-                        <form action="" method="post" name="login">
+                        <form method="post">
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><strong>CPF</strong></label>
-                                <input type="text" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu CPF para podermos te identificar">
+                                <input type="text" name="cpf" value="[@cpf]" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu CPF para podermos te identificar">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><strong>Nome Completo</strong></label>
-                                <input type="text" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu nome completo">
+                                <input type="text" name="nome" value="[@nome]" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu nome completo">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><strong>Email</strong></label>
-                                <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu endere&ccedil;o de email">
+                                <input type="email" name="email" value="[@email]" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu endere&ccedil;o de email">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><strong>Senha</strong></label>
-                                <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Crie uma senha">
+                                <input type="password" name="senha" value="[@senha]" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Crie uma senha">
+                            </div>
+                            <div style="color: red;">
+                                [@erroMsg]
+                                <br />
+                                <br />
                             </div>
                             <div class="col-md-12 text-center ">
                                 <button type="submit" class=" btn btn-block mybtn btn-success tx-tfm">Criar conta UAI</button>

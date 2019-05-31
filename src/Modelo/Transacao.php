@@ -54,4 +54,9 @@ class Transacao {
         return self::$conexao->lastInsertId();
     }
 
+    public function exists($table, $column, $value) {
+        $resultado = self::$conexao->query("select * from $table where $column = '$value'");
+        return ($resultado->rowCount() == true);
+    }
+
 }

@@ -27,18 +27,25 @@ class ControleUsuario {
     }
 
     public function getTipoUsuario($id) {
-        echo '<pre>';
         $tipos = array("financiador", "administrador", "funcio0nario");
         foreach ($tipos as $tipo) {
             if ($this->isTipoUsuario($tipo, $id)) {
                 return $tipo;
             }
         }
-        return "non";
+        return null;
     }
 
-    public function novoFinanciador() {
+    public function novoFinanciador($nome, $cpf, $email, $senha) {
+        $conexao = Transacao::get();
+        if (Transacao::exists("usuario", "cpf", $cpf) || Transacao::exists("usuario", "email", $email)) {
+            return false;
+        }
+        $conexao->query("INSERT INTO `usuario`(`nome`, `cpf`, `email`, `senha`) VALUES ('$nome', '$cpf', '$email', '$senha')");
+        $idUsuario = Transacao::ultimoIdInserido();
+        $conexao->query("INSERT INTO `financiador`(`idUsuario`, `carteira`) VALUES ('$idUsuario', 0)");
         
+        return $this->realizarLogin($email, $senha);
     }
 
     /**
