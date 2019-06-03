@@ -12,13 +12,13 @@
 #RNF12 - O design do projeto deve ser responsívo para atender todas as plataformas que rodem html/javascript
 #RNF13 - O projeto deve ser feito utilizando a linguagem PHP para operações backend e criação das paginas front-end
 #RNF14 - Qualquer usuário anônimo poderá se cadastrar como Financiador
-#RNF14 - Somente administradores podem criar outra conta de Administrador
-#RNF14 - Somente administradores podem criar uma conta de Funcionário
-#RNF14 - Qualquer usuário cadastrado pode altearar seus dados pessoais no sistema
-#RNF05 - Somente Financiadores possuem carteira virtual e podem adicionar dinheiro à carteira
-#RF07 - Qualquer usuário pode listar todos os projetos
-#RF07 - Financiadores podem apoiar qualquer projeto com meta em aberto
-#RF09 - Administradores podem designar Funcionários a um projeto
-#RF09 - Todos podem fazer login
-#RF09 - Somente administradores podem editar projetos existentes
-#RF09 - Somente administradores podem excluir projetos existentes
+#RNF15 - Somente administradores podem criar outra conta de Administrador
+#RNF16 - Somente administradores podem criar uma conta de Funcionário
+#RNF17 - Qualquer usuário cadastrado pode altearar seus dados pessoais no sistema
+#RNF18 - Somente Financiadores possuem carteira virtual e podem adicionar dinheiro à carteira
+#RNF19 - Qualquer usuário pode listar todos os projetos
+#RNF20 - Financiadores podem apoiar qualquer projeto com meta em aberto
+#RNF21 - Administradores podem designar Funcionários a um projeto
+#RNF22 - Todos podem fazer login
+#RNF23 - Somente administradores podem editar projetos existentes
+#RNF24 - Somente administradores podem excluir projetos existentes
