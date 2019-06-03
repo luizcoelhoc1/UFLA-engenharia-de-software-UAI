@@ -22,3 +22,4 @@
 #RNF22 - Todos podem fazer login
 #RNF23 - Somente administradores podem editar projetos existentes
 #RNF24 - Somente administradores podem excluir projetos existentes
+#RNF25 - Qualquer usuário do sistema pode excluir sua própria conta
