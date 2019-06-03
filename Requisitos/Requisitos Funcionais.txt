@@ -10,3 +10,4 @@
 #RF10 - Fazer login
 #RF11 - Editar projetos
 #RF12 - Excluir projetos
+#RF13 - Excluir conta de usuário
