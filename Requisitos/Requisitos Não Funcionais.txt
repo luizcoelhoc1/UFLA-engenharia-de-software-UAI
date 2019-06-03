@@ -1,4 +1,4 @@
-﻿#RNF01 - Todo e qualquer arquivo do projeto do software deve estar em UTF-8
+#RNF01 - Todo e qualquer arquivo do projeto do software deve estar em UTF-8
 #RNF02 - O dinheiro dos Financiadores deve ser devolvido em sua carteira caso o projeto atinja a data limite (sempre 6 meses após a criação do projeto) e não tenha atingido a meta
 #RNF03 - A senha para criação de qualquer nova conta (Administrador, Funcionário e Financiador) deverá ter no mínimo 6 caracteres e no máximo 40
 #RNF04 - Será feita verificação de formatação dos emails, sempre que forem requisitados pelo sistema, para assegurar a validez do mesmo
@@ -10,4 +10,15 @@
 #RNF10 - O campo de preenchimento Gêneros e Autor, na página de criação de um novo projeto, pode ter um ou mais nomes separados por vírgula
 #RNF11 - O design do projeto deve ser feito utilizando o framework Bootstrap
 #RNF12 - O design do projeto deve ser responsívo para atender todas as plataformas que rodem html/javascript
-#RNF13 - O projeto deve ser feito utilizando a linguagem PHP para operações backend e criação das paginas front-end.
+#RNF13 - O projeto deve ser feito utilizando a linguagem PHP para operações backend e criação das paginas front-end
+#RNF14 - Qualquer usuário anônimo poderá se cadastrar como Financiador
+#RNF14 - Somente administradores podem criar outra conta de Administrador
+#RNF14 - Somente administradores podem criar uma conta de Funcionário
+#RNF14 - Qualquer usuário cadastrado pode altearar seus dados pessoais no sistema
+#RNF05 - Somente Financiadores possuem carteira virtual e podem adicionar dinheiro à carteira
+#RF07 - Qualquer usuário pode listar todos os projetos
+#RF07 - Financiadores podem apoiar qualquer projeto com meta em aberto
+#RF09 - Administradores podem designar Funcionários a um projeto
+#RF09 - Todos podem fazer login
+#RF09 - Somente administradores podem editar projetos existentes
+#RF09 - Somente administradores podem excluir projetos existentes
