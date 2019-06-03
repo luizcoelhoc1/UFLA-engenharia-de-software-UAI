@@ -1,12 +1,13 @@
-#RF01 - Qualquer pessoa pode se cadastrar como um Financiador
-#RF02 - Administradores cadastram outros Administradores no sistema
-#RF03 - Administradores cadastram Funcion�rios no sistema
-#RF04 - Administradores, Funcion�rios e Financiadores alteram seus dados pessoais no sistema
-#RF05 - Somente Administradores criam projetos no sistema
-#RF06 - Financiadores adicionam dinheiro a sua carteira virtual
-#RF07 - Administradores, Funcionarios e Financiadores veem todos os projetos 
-#RF08 - Financiadores podem apoiar financeiramente quaisquer projetos com meta em aberto
-#RF09 - Administradores devem designar Funcion�rios caso o projeto tenha sido aprovado
-#RF10 - Administradores, Funcion�rios e Financiadores fazem login
-#RF11 - Administradores podem editar projetos existentes
-#RF12 - Administradores podem excluir projetos existentes
+#RU01 - Qualquer pessoa pode se cadastrar como um Financiador
+#RU02 - Administradores cadastram outros Administradores no sistema
+#RU03 - Administradores cadastram Funcionários no sistema
+#RU04 - Administradores, Funcionários e Financiadores alteram seus dados pessoais no sistema
+#RU05 - Somente Administradores criam projetos no sistema
+#RU06 - Financiadores adicionam dinheiro a sua carteira virtual
+#RU07 - Administradores, Funcionarios e Financiadores veem todos os projetos 
+#RU08 - Financiadores podem apoiar financeiramente quaisquer projetos com meta em aberto
+#RU09 - Administradores devem designar Funcionários caso o projeto tenha sido aprovado
+#RU10 - Administradores, Funcionários e Financiadores fazem login
+#RU11 - Administradores podem editar projetos existentes
+#RU12 - Administradores podem excluir projetos existentes
+#RU13 - Todo mundo poderá excluir sua pŕopria conta
