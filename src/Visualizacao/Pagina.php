@@ -118,13 +118,12 @@ class Pagina {
     
     public function editarDadosPessoais() {
         if (isset($_COOKIE["uaiid"])) {
+            $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
             if (isSetPost(["nome", "cpf", "email"]) || isset($_POST["senha"])) {
-                echo "<pre>";
-                print_r($_POST);
-                echo "</pre>";
+                $usuario = new Usuario($_COOKIE["uaiid"], $_POST["cpf"], $_POST["email"], $_POST["nome"], $_POST["senha"]);
+                $this->controle->usuario->setUsuario($usuario);
             }
             
-            $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
             $pagina->set("navegacao", $this->navegacao());
             $usuario = $this->controle->usuario->getUsuario($_COOKIE["uaiid"]);
             $pagina->set("cpf", $usuario->getCpf());

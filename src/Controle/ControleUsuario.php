@@ -54,7 +54,31 @@ class ControleUsuario {
      * TODO Auto-generated comment.
      */
     public function setUsuario($usuario) {
-        return false;
+        $conexao = Transacao::get();
+        
+        //montando o where do select para verificação de email e cpf existentes
+        $selectWhere = array();
+        $selectWhere[] = " cpf = '" . $usuario->getCpf() . "'";
+        $selectWhere[] = " email = '" . $usuario->getEmail() . "'";
+        $update = $selectWhere;
+        
+        //Verifica se existe email ou cpf editados
+        $selectWhere = implode(" or ", $update);
+        $resultado = $conexao->query($sql = "select * from usuario where (id <> '" . $_COOKIE["uaiid"]. "') and ($selectWhere)");
+        if ($resultado->rowCount()) {
+            return false;
+        }
+        
+        //update
+        $update[] = " nome = '" . $usuario->getNome() . "'";
+        $update[] = " cpf = '" . $usuario->getCpf() . "'";
+        $update[] = " email = '" . $usuario->getEmail() . "'";
+        if ($usuario->getSenha() != null) {
+            $update[] = " senha = '" . $usuario->getSenha() . "'";
+        }
+        $conexao->query("UPDATE `usuario` SET " . implode(", ",$update) . " WHERE id = '" . $_COOKIE["uaiid"] . "'");
+        
+        return true;
     }
 
     /**
