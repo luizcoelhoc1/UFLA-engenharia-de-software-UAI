@@ -11,7 +11,9 @@ class ControleUsuario {
         if (!$resultado->rowCount()) {
             return false;
         } else {
+            ob_start();
             setcookie("uaiid", $resultado->fetchObject()->id);
+            ob_end_flush();
             return true;
         }
     }
@@ -19,7 +21,7 @@ class ControleUsuario {
     private function isTipoUsuario($tipo, $id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select idUsuario from $tipo where idUsuario = '$id'");
-        if (!$resultado->rowCount()) {
+        if ($resultado->rowCount()) {
             return true;
         } else {
             return false;
@@ -27,7 +29,7 @@ class ControleUsuario {
     }
 
     public function getTipoUsuario($id) {
-        $tipos = array("financiador", "administrador", "funcio0nario");
+        $tipos = array("financiador", "administrador", "funcionario");
         foreach ($tipos as $tipo) {
             if ($this->isTipoUsuario($tipo, $id)) {
                 return $tipo;
@@ -44,7 +46,7 @@ class ControleUsuario {
         $conexao->query("INSERT INTO `usuario`(`nome`, `cpf`, `email`, `senha`) VALUES ('$nome', '$cpf', '$email', '$senha')");
         $idUsuario = Transacao::ultimoIdInserido();
         $conexao->query("INSERT INTO `financiador`(`idUsuario`, `carteira`) VALUES ('$idUsuario', 0)");
-        
+
         return $this->realizarLogin($email, $senha);
     }
 
@@ -66,7 +68,23 @@ class ControleUsuario {
      * TODO Auto-generated comment.
      */
     public function getFinanciador($id) {
-        return null;
+        $conexao = Transacao::get();
+        $resposta = $conexao->query("select * from usuario inner join financiador on usuario.id = financiador.idUsuario where usuario.id = '$id'");
+        $std = $resposta->fetchObject();
+        if ($std == null) {
+            return null;
+        }
+        return new Financiador($std->cpf, $std->email, $std->nome, $std->senha, $std->carteira, $std->id);
+    }
+
+    public function getUsuario($id) {
+        $conexao = Transacao::get();
+        $resposta = $conexao->query("select * from usuario where id = '$id'");
+        $std = $resposta->fetchObject();
+        if ($std == null) {
+            return null;
+        }
+        return new Usuario($std->id, $std->cpf, $std->email, $std->nome, $std->senha);
     }
 
     /**

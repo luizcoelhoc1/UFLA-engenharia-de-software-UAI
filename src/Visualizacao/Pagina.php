@@ -95,11 +95,41 @@ class Pagina {
         return "";
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
+    
+    public function navegacao() {
+        $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
+        
+        if (isset($_COOKIE["uaiid"])) {
+            $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
+            if ($tipo == "financiador") {
+                $financiador = $this->controle->usuario->getFinanciador($_COOKIE["uaiid"]);
+                $navegacao->set("navegacaoEspecifica", Navegacao::navegacaoFinanciador($financiador));
+            } else if ($tipo == "administrador") {
+                
+            } else {
+                
+            }
+        } else {
+            
+        }
+        return $navegacao->output();
+    }
+    
+    
     public function editarDadosPessoais() {
-        return "aa";
+        if (isset($_COOKIE["uaiid"])) {
+            $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
+            $pagina->set("navegacao", $this->navegacao());
+          
+            $usuario = $this->controle->usuario->getUsuario($_COOKIE["uaiid"]);
+            $pagina->set("cpf", $usuario->getCpf());
+            $pagina->set("nome", $usuario->getNome());
+            $pagina->set("email", $usuario->getEmail());
+            $pagina->set("email", $usuario->getEmail());
+        } else {
+            return $this->login();
+        }
+        echo $pagina->output();
     }
 
 }

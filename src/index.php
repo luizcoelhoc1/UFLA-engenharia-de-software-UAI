@@ -3,8 +3,11 @@
 include_once './Controle/Controle.php';
 include_once './Controle/ControleUsuario.php';
 include_once './Modelo/Conexao.php';
+include_once './Modelo/Usuario.php';
+include_once './Modelo/Financiador.php';
 include_once './Modelo/Transacao.php';
 include_once 'Visualizacao/Template.php';
+include_once 'Visualizacao/Navegacao.php';
 include_once 'Visualizacao/Pagina.php';
 
 try {

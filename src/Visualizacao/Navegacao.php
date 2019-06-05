@@ -1,34 +1,39 @@
 <?php
+
 /**
  * TODO Auto-generated comment.
  */
 class Navegacao {
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function navegacaoAnonimo() {
-		return "";
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function navegacaoAnonimo() {
+        return "";
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function navegacaoFinanciador($financiador) {
-		return "";
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    static public function navegacaoFinanciador($financiador) {
+        $navegacao = new Template(__DIR__ . "/html/navegacao/financiador.html");
+        $navegacao->set("carteira", $financiador->getCarteira());
+        $navegacao->set("nome", $financiador->getNome());
+        return $navegacao->output();
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function navegacaoAdministrador($administrador) {
-		return "";
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function navegacaoAdministrador($administrador) {
+        return "";
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function navegacaoFuncionario($funcionario) {
-		return "";
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function navegacaoFuncionario($funcionario) {
+        return "";
+    }
+
 }

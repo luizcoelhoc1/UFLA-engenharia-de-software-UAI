@@ -41,64 +41,48 @@ class Usuario {
     /**
      * TODO Auto-generated comment.
      */
-    public function getId() {
-        return 0;
+   
+    function setId($id) {
+        $this->id = $id;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function getCpf() {
-        return "";
+    function setCpf($cpf) {
+        $this->cpf = $cpf;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function getEmail() {
-        return "";
+    function setEmail($email) {
+        $this->email = $email;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function getNome() {
-        return "";
+    function setNome($nome) {
+        $this->nome = $nome;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function getSenha() {
-        return "";
+    function setSenha($senha) {
+        $this->senha = $senha;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function setSenha($novaSenha) {
-        return "";
+        
+    function getId() {
+        return $this->id;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function setCpf($cpf) {
-        return "";
+    function getCpf() {
+        return $this->cpf;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function setEmail($email) {
-        return "";
+    function getEmail() {
+        return $this->email;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
-    public function setNome($nome) {
-        return "";
+    function getNome() {
+        return $this->nome;
     }
+
+    function getSenha() {
+        return $this->senha;
+    }
+
+
 
 }
