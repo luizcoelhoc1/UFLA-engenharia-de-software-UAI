@@ -13,6 +13,7 @@ class ControleUsuario {
         } else {
             ob_start();
             setcookie("uaiid", $resultado->fetchObject()->id);
+            echo "logado";
             ob_end_flush();
             return true;
         }
@@ -118,4 +119,13 @@ class ControleUsuario {
         return null;
     }
 
+    public function deletarConta($id) {
+        $conexao = Transacao::get();
+        $resultado = $conexao->query("delete from usuario where id = '$id'");
+        return ($resultado->rowCount() == true);
+    }
+    
+    public function deslogar() {
+        setcookie("uaiid", null, -1, "/");
+    }
 }
