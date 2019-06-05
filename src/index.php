@@ -10,6 +10,15 @@ include_once 'Visualizacao/Template.php';
 include_once 'Visualizacao/Navegacao.php';
 include_once 'Visualizacao/Pagina.php';
 
+function isSetPost($arr) {
+    $retorno = false;
+    foreach ($arr as $value) {
+        $retorno = $retorno && isset($value);
+    }
+    return $retorno;
+}
+
+
 try {
     Transacao::open();
 
