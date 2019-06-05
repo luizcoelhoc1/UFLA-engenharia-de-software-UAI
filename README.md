@@ -25,8 +25,11 @@ Usuários:
 - Suas contribuiçãos poderão ser incorporados em futuras versões do sistema UAI, por causa disso, todos pull requests serão sujeitos ao mesmo nível de cuidado de qualidade, padrões de códigos, performance, acessibilidade e compatibilidade por nossos contribuidores internos.
 
 ### Boas práticas de programação
-- Não usar nomes de variáveis com 3 ou mais palavras
-- A denominação das variáveis deverão ser feitas utilizando-se CamelCase
-- A primeira letra dos nomes das classes deve ser capitalizada
-- A primeira letra dos nomes das variáveis locais. métodos e funções deve ser capitalizada
-- Constantes e variáveis globais devem ser inteiramente capitalizadas
+- Não usar nomes de variáveis com 3 ou mais palavras;
+- A denominação das variáveis deverão ser feitas utilizando-se CamelCase;
+- A primeira letra dos nomes das classes deve ser capitalizada;
+- A primeira letra dos nomes das variáveis locais. métodos e funções não deverão ser capitalizada;
+- Constantes e variáveis globais devem ser inteiramente capitalizadas;
+- Não se deve ter apenas um { em alguma linha do código;
+- Deve-se ter espaços entre cada operador(soma, concatenação, subtração etc). Ex: 1+1 errado; 1 + 1 correto;
+- Apenas as palavras get, is, set poderão ser usadas do inglês. Outras exceções são palavras sem tradução para o português.
