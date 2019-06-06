@@ -64,12 +64,37 @@
                     <br />
 
                     <div class="row">
-                        <button type="button" class="btn btn-outline-danger col-4">Excluir Conta!</button>
+                        <button type="button" class="btn btn-outline-danger col-4" data-toggle="modal" data-target="#excluir">Excluir Conta!</button>
                         <div class="col-4"></div>
                         <button type="submit" class="btn btn-outline-success col-4">Editar dados pessoais!</button>
                     </div>
                 </div>
             </form>
+
+
+            <div class="modal fade" id="excluir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Excluir conta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Tem certeza que deseja excluir sua conta? N&atilde;o poder&aacute; ser desfeito!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                            <a href="?a=deletarConta">
+                                <button type="button" class="btn btn-danger">
+                                    Excluir
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div><!-- /.container -->
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

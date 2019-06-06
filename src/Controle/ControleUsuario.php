@@ -13,6 +13,7 @@ class ControleUsuario {
         } else {
             ob_start();
             setcookie("uaiid", $resultado->fetchObject()->id);
+            echo "logado";
             ob_end_flush();
             return true;
         }
@@ -54,7 +55,31 @@ class ControleUsuario {
      * TODO Auto-generated comment.
      */
     public function setUsuario($usuario) {
-        return false;
+        $conexao = Transacao::get();
+        
+        //montando o where do select para verificação de email e cpf existentes
+        $selectWhere = array();
+        $selectWhere[] = " cpf = '" . $usuario->getCpf() . "'";
+        $selectWhere[] = " email = '" . $usuario->getEmail() . "'";
+        $update = $selectWhere;
+        
+        //Verifica se existe email ou cpf editados
+        $selectWhere = implode(" or ", $update);
+        $resultado = $conexao->query($sql = "select * from usuario where (id <> '" . $_COOKIE["uaiid"]. "') and ($selectWhere)");
+        if ($resultado->rowCount()) {
+            return false;
+        }
+        
+        //update
+        $update[] = " nome = '" . $usuario->getNome() . "'";
+        $update[] = " cpf = '" . $usuario->getCpf() . "'";
+        $update[] = " email = '" . $usuario->getEmail() . "'";
+        if ($usuario->getSenha() != null) {
+            $update[] = " senha = '" . $usuario->getSenha() . "'";
+        }
+        $conexao->query("UPDATE `usuario` SET " . implode(", ",$update) . " WHERE id = '" . $_COOKIE["uaiid"] . "'");
+        
+        return true;
     }
 
     /**
@@ -94,4 +119,13 @@ class ControleUsuario {
         return null;
     }
 
+    public function deletarConta($id) {
+        $conexao = Transacao::get();
+        $resultado = $conexao->query("delete from usuario where id = '$id'");
+        return ($resultado->rowCount() == true);
+    }
+    
+    public function deslogar() {
+        setcookie("uaiid", null, -1, "/");
+    }
 }

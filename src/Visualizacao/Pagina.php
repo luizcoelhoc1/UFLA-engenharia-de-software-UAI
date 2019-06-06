@@ -26,7 +26,8 @@ class Pagina {
         if (isset($_POST["email"]) && $_POST["senha"]) {
             $estaLogado = $this->controle->usuario->realizarLogin($_POST["email"], $_POST["senha"]);
             if ($estaLogado) {
-                return $this->projeto($this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]));
+                echo $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
+                return $this->projeto();
             } else {
                 $pagina->set("erro", "block");
                 $pagina->set("email", $_POST["email"]);
@@ -95,10 +96,9 @@ class Pagina {
         return "";
     }
 
-    
     public function navegacao() {
         $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
-        
+
         if (isset($_COOKIE["uaiid"])) {
             $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
             if ($tipo == "financiador") {
@@ -114,17 +114,15 @@ class Pagina {
         }
         return $navegacao->output();
     }
-    
-    
+
     public function editarDadosPessoais() {
         if (isset($_COOKIE["uaiid"])) {
-            if (isSetPost(["nome", "cpf", "email"]) || isset($_POST["senha"])) {
-                echo "<pre>";
-                print_r($_POST);
-                echo "</pre>";
-            }
-            
             $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
+            if (isSetPost(["nome", "cpf", "email"]) || isset($_POST["senha"])) {
+                $usuario = new Usuario($_COOKIE["uaiid"], $_POST["cpf"], $_POST["email"], $_POST["nome"], $_POST["senha"]);
+                $this->controle->usuario->setUsuario($usuario);
+            }
+
             $pagina->set("navegacao", $this->navegacao());
             $usuario = $this->controle->usuario->getUsuario($_COOKIE["uaiid"]);
             $pagina->set("cpf", $usuario->getCpf());
@@ -136,6 +134,16 @@ class Pagina {
             return $this->login();
         }
         echo $pagina->output();
+    }
+
+    public function deletarConta() {
+        $this->controle->usuario->deletarConta($_COOKIE["uaiid"]);
+        return $this->criarProjeto("anonimo");
+    }
+
+    public function deslogar() {
+        $this->controle->usuario->deslogar();
+        return $this->criarProjeto("anonimo");
     }
 
 }
