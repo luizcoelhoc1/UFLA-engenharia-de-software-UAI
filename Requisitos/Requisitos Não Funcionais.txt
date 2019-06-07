@@ -15,11 +15,12 @@
 #RNF15 - Somente administradores podem criar outra conta de Administrador
 #RNF16 - Somente administradores podem criar uma conta de Funcionário
 #RNF17 - Qualquer usuário cadastrado pode altearar seus dados pessoais no sistema
-#RNF18 - Somente Financiadores possuem carteira virtual e podem adicionar dinheiro à carteira
-#RNF19 - Qualquer usuário pode listar todos os projetos
-#RNF20 - Financiadores podem apoiar qualquer projeto com meta em aberto
-#RNF21 - Administradores podem designar Funcionários a um projeto
-#RNF22 - Todos podem fazer login
-#RNF23 - Somente administradores podem editar projetos existentes
-#RNF24 - Somente administradores podem excluir projetos existentes
-#RNF25 - Qualquer usuário do sistema pode excluir sua própria conta
+#RNF18 - Somente administradores podem criar projetos
+#RNF19 - Somente Financiadores possuem carteira virtual e podem adicionar dinheiro à carteira
+#RNF20 - Qualquer usuário pode listar todos os projetos
+#RNF21 - Financiadores podem apoiar qualquer projeto com meta em aberto
+#RNF22 - Administradores podem designar Funcionários a um projeto
+#RNF23 - Todos podem fazer login
+#RNF24 - Somente administradores podem editar projetos existentes
+#RNF25 - Somente administradores podem excluir projetos existentes
+#RNF26 - Qualquer usuário do sistema pode excluir sua própria conta
