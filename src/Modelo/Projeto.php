@@ -3,30 +3,14 @@
  * TODO Auto-generated comment.
  */
 class Projeto {
-	/**
-	 * TODO Auto-generated comment.
-	 */
+
 	private $id;
-	/**
-	 * TODO Auto-generated comment.
-	 */
 	private $nome;
-	/**
-	 * TODO Auto-generated comment.
-	 */
 	private $fonte;
-	/**
-	 * TODO Auto-generated comment.
-	 */
 	private $autor;
-	/**
-	 * TODO Auto-generated comment.
-	 */
 	private $sinopse;
-	/**
-	 * TODO Auto-generated comment.
-	 */
 	private $genero;
+	private $fundo;
 
 	/**
 	 * TODO Auto-generated comment.
@@ -103,5 +87,14 @@ class Projeto {
 	 */
 	public function setGenero($genero) {
 		return "";
+	}
+	
+	/** 
+	* TODO, adicionei isso aqui depois
+	*/
+	public function apoiar($quantia) {
+		if ($quantia <= 0) {
+			return False;
+		} else return True;
 	}
 }
