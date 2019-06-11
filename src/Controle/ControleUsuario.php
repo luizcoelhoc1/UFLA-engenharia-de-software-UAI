@@ -4,7 +4,10 @@
  * TODO Auto-generated comment.
  */
 class ControleUsuario {
-
+    
+    /***
+    * Seta cookie do login se existir conta
+    */
     public function realizarLogin($email, $senha) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select id from usuario where email = '$email' and senha = '$senha'");
@@ -19,6 +22,9 @@ class ControleUsuario {
         }
     }
 
+    /***
+    * função auxiliar do get tipo usuário para verificar o tipo de usuário 
+    */
     private function isTipoUsuario($tipo, $id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select idUsuario from $tipo where idUsuario = '$id'");
@@ -29,6 +35,9 @@ class ControleUsuario {
         }
     }
 
+    /***
+    * retorna o tipo de usuário do id passado
+    */
     public function getTipoUsuario($id) {
         $tipos = array("financiador", "administrador", "funcionario");
         foreach ($tipos as $tipo) {
@@ -39,6 +48,10 @@ class ControleUsuario {
         return null;
     }
 
+    /***
+    * Cadastra novo funcionário e realiza login caso seja criado com sucesso
+    * Retorna true para caso todos os procedimentos sejam executados com sucesso e false caso contrário
+    */
     public function novoFinanciador($nome, $cpf, $email, $senha) {
         $conexao = Transacao::get();
         if (Transacao::exists("usuario", "cpf", $cpf) || Transacao::exists("usuario", "email", $email)) {
@@ -51,8 +64,8 @@ class ControleUsuario {
         return $this->realizarLogin($email, $senha);
     }
 
-    /**
-     * TODO Auto-generated comment.
+    /***
+     * Muda dos dados do usuário passado por parâmetro e fixa no banco de dados
      */
     public function setUsuario($usuario) {
         $conexao = Transacao::get();
@@ -81,7 +94,7 @@ class ControleUsuario {
         
         return true;
     }
-
+    
     /**
      * TODO Auto-generated comment.
      */
@@ -90,7 +103,7 @@ class ControleUsuario {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * retorna um objeto Financiador com os dados do Financiador com o id do id passado por parâmetro 
      */
     public function getFinanciador($id) {
         $conexao = Transacao::get();
@@ -102,10 +115,14 @@ class ControleUsuario {
         return new Financiador($std->cpf, $std->email, $std->nome, $std->senha, $std->carteira, $std->id);
     }
 
+    /***
+    * retorna um usuário com o id passado
+    */
     public function getUsuario($id) {
         $conexao = Transacao::get();
         $resposta = $conexao->query("select * from usuario where id = '$id'");
         $std = $resposta->fetchObject();
+        // se for nulo
         if ($std == null) {
             return null;
         }
@@ -119,12 +136,18 @@ class ControleUsuario {
         return null;
     }
 
+    /***
+    * Deleta a conta do banco de dados com o id passado por parâmetro 
+    */
     public function deletarConta($id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("delete from usuario where id = '$id'");
         return ($resultado->rowCount() == true);
     }
     
+    /***
+    * desloga
+    */
     public function deslogar() {
         setcookie("uaiid", null, -1, "/");
     }
