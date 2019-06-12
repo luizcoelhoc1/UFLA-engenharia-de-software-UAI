@@ -1,8 +1,5 @@
 <?php
 
-/**
- * TODO Auto-generated comment.
- */
 class ControleUsuario {
     
     /***
@@ -36,7 +33,7 @@ class ControleUsuario {
     }
 
     /***
-    * retorna o tipo de usuário do id passado
+    * Retorna o tipo de usuário do id passado ou null caso não seja de nenhum tipo especificado
     */
     public function getTipoUsuario($id) {
         $tipos = array("financiador", "administrador", "funcionario");
@@ -54,9 +51,13 @@ class ControleUsuario {
     */
     public function novoFinanciador($nome, $cpf, $email, $senha) {
         $conexao = Transacao::get();
+        
+        //verifica se as unique key já não existem
         if (Transacao::exists("usuario", "cpf", $cpf) || Transacao::exists("usuario", "email", $email)) {
             return false;
         }
+        
+        //insere o financiador
         $conexao->query("INSERT INTO `usuario`(`nome`, `cpf`, `email`, `senha`) VALUES ('$nome', '$cpf', '$email', '$senha')");
         $idUsuario = Transacao::ultimoIdInserido();
         $conexao->query("INSERT INTO `financiador`(`idUsuario`, `carteira`) VALUES ('$idUsuario', 0)");
@@ -83,13 +84,15 @@ class ControleUsuario {
             return false;
         }
         
-        //update
+        //monta o set do UPDATE 
         $update[] = " nome = '" . $usuario->getNome() . "'";
         $update[] = " cpf = '" . $usuario->getCpf() . "'";
         $update[] = " email = '" . $usuario->getEmail() . "'";
         if ($usuario->getSenha() != null) {
             $update[] = " senha = '" . $usuario->getSenha() . "'";
         }
+        
+        //atualiza
         $conexao->query("UPDATE `usuario` SET " . implode(", ",$update) . " WHERE id = '" . $_COOKIE["uaiid"] . "'");
         
         return true;
@@ -116,13 +119,13 @@ class ControleUsuario {
     }
 
     /***
-    * retorna um usuário com o id passado
+    * retorna um usuário com o id passado ou null caso não exista no banco de dados
     */
     public function getUsuario($id) {
         $conexao = Transacao::get();
         $resposta = $conexao->query("select * from usuario where id = '$id'");
         $std = $resposta->fetchObject();
-        // se for nulo
+        // se não existe no banco de dados retorna null
         if ($std == null) {
             return null;
         }
@@ -146,7 +149,7 @@ class ControleUsuario {
     }
     
     /***
-    * desloga
+    * Desloga
     */
     public function deslogar() {
         setcookie("uaiid", null, -1, "/");
