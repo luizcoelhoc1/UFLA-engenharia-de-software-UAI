@@ -1,5 +1,7 @@
 <?php
-
+/***
+*Imports
+*/
 include_once './Controle/Controle.php';
 include_once './Controle/ControleUsuario.php';
 include_once './Modelo/Conexao.php';
@@ -10,6 +12,9 @@ include_once 'Visualizacao/Template.php';
 include_once 'Visualizacao/Navegacao.php';
 include_once 'Visualizacao/Pagina.php';
 
+/***
+* Verifica se todos os posts estão setados 
+*/
 function isSetPost($arr) {
     $retorno = false;
     foreach ($arr as $value) {
@@ -19,17 +24,25 @@ function isSetPost($arr) {
 }
 
 
+
 try {
+    //Abre a transição com o banco de dados
     Transacao::open();
 
+    //Cria um objeto do tipo página
     $pagina = new Pagina();
-
-
+   
+    //chama a função da pagina que o usuário clicou
     $func = $_GET["a"];
     echo $pagina->$func();
+    
+    //Fecha 
     Transacao::close();
 } catch (Exception $e) {
+    //Caso de erro mostra o erro e da rollback em todas as alterações do banco de dados
     echo $e->getMessage();
     Transacao::rollback();
 }
+
+
 ?>
