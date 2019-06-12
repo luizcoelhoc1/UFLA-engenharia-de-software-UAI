@@ -1,8 +1,5 @@
 <?php
 
-/**
- * TODO Auto-generated comment.
- */
 class Financiador extends Usuario {
 
     function __construct($cpf, $email, $nome, $senha, $carteira = 0, $id = null) {
@@ -10,9 +7,9 @@ class Financiador extends Usuario {
         $this->carteira = $carteira;
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
+    /***
+    * Carteira virtual do financiador
+    */
     private $carteira;
 
     /**
@@ -22,6 +19,9 @@ class Financiador extends Usuario {
         return false;
     }
 
+    /***
+    * Retorna o valor da carteira virtual do financiador
+    */
     function getCarteira() {
         return $this->carteira;
     }
