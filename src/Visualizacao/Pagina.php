@@ -1,8 +1,5 @@
 <?php
 
-/**
- * TODO Auto-generated comment.
- */
 class Pagina {
 
     private $controle;
@@ -18,34 +15,41 @@ class Pagina {
         
     }
 
-    /**
-     * TODO Auto-generated comment.
+    /***
+     * Retorna a página de login e caso o usuário mande um POST é feito o login e retornado a pagina inicial
      */
     public function login() {
+        
         $pagina = new Template(__DIR__ . "/html/login/login.html");
+        
+        //Caso exista post
         if (isset($_POST["email"]) && $_POST["senha"]) {
             $estaLogado = $this->controle->usuario->realizarLogin($_POST["email"], $_POST["senha"]);
+            //Login realizado
             if ($estaLogado) {
                 echo $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
                 return $this->projeto();
             } else {
+            // Login errado
                 $pagina->set("erro", "block");
                 $pagina->set("email", $_POST["email"]);
                 $pagina->set("senha", $_POST["senha"]);
             }
         } else {
+        //Caso não exista
             $pagina->set("erro", "none");
             $pagina->set("email", "");
             $pagina->set("senha", "");
         }
+        
         return $pagina->output();
     }
 
-    /**
-     * TODO Auto-generated comment.
+    /***
+     * Retorna a página de cadastrar-se ou cadastra um novo financiador verificando se existe POST ou não
      */
     public function cadastrarSe() {
-
+        //Caso exista post (usuário clicou no botão de cadastrar-se)
         if (isset($_POST["nome"]) && isset($_POST["cpf"]) && isset($_POST["email"]) && isset($_POST["senha"])) {
             $pagina = new Template(__DIR__ . "/html/login/cadastrarSe.html");
             if ($this->controle->usuario->novoFinanciador($_POST["nome"], $_POST["cpf"], $_POST["email"], $_POST["senha"])) {
@@ -58,6 +62,7 @@ class Pagina {
                 $pagina->set("erroMsg", "Cpf ou email j&aacute; existentes");
             }
         } else {
+        //Caso tenha acabado de clicar na página de cadastrar-se
             $pagina = new Template(__DIR__ . "/html/login/cadastrarSe.html");
             $pagina->set("nome", "");
             $pagina->set("email", "");
@@ -96,6 +101,9 @@ class Pagina {
         return "";
     }
 
+    /***
+    * Monta a navegação da pagina baseado no cookie uaiid
+    */
     public function navegacao() {
         $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
 
@@ -115,6 +123,10 @@ class Pagina {
         return $navegacao->output();
     }
 
+    
+    /***
+    * Retorna a página de edição de dados pessoais e realiza as mudanças dependendo se existe ou não POST
+    */
     public function editarDadosPessoais() {
         if (isset($_COOKIE["uaiid"])) {
             $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
@@ -136,14 +148,20 @@ class Pagina {
         echo $pagina->output();
     }
 
+    /***
+    * Deleta uma conta e retorna a página inicial no modo anonimo
+    */
     public function deletarConta() {
         $this->controle->usuario->deletarConta($_COOKIE["uaiid"]);
-        return $this->criarProjeto("anonimo");
+        return $this->projeto("anonimo");
     }
 
+    /***
+    * Desloga e retorna a página inicial no modo anonimo
+    */
     public function deslogar() {
         $this->controle->usuario->deslogar();
-        return $this->criarProjeto("anonimo");
+        return $this->projeto("anonimo");
     }
 
 }
