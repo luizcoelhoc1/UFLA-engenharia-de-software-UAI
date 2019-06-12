@@ -1,8 +1,5 @@
 <?php
 
-/**
- * TODO Auto-generated comment.
- */
 class Navegacao {
 
     /**
@@ -13,7 +10,7 @@ class Navegacao {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * Retorna string contendo HTML do navbar que o financiador verá
      */
     static public function navegacaoFinanciador($financiador) {
         $navegacao = new Template(__DIR__ . "/html/navegacao/financiador.html");
