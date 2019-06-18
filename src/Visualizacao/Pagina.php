@@ -12,7 +12,9 @@ class Pagina {
      * TODO Auto-generated comment.
      */
     public function projeto($tipoPagina) {
+        $pagina = new Template(__DIR__ . "/html/pagina/index.html");
         
+        $pagina->set("navegacao", $this->navegacao($tipoPagina));
     }
 
     /***
@@ -104,22 +106,29 @@ class Pagina {
     /***
     * Monta a navegação da pagina baseado no cookie uaiid
     */
-    public function navegacao() {
+    public function navegacao($tipo = null) {
         $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
-
-        if (isset($_COOKIE["uaiid"])) {
-            $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
-            if ($tipo == "financiador") {
-                $financiador = $this->controle->usuario->getFinanciador($_COOKIE["uaiid"]);
-                $navegacao->set("navegacaoEspecifica", Navegacao::navegacaoFinanciador($financiador));
-            } else if ($tipo == "administrador") {
-                
+        
+        //Acha o tipo da navegação
+        if ($tipo == null) {
+            if (isset($_COOKIE["uaiid"])) {
+                $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
             } else {
-                
+                $tipo = "anonimo";
             }
-        } else {
-            
         }
+        
+        //Monta a navegação
+        if ($tipo == "anonimo") {
+            
+        } else {
+            $get = "get" . ucfirst($tipo);
+            $navegacaoTipo = "navegacao" . ucfirst($tipo);
+            $usuario = $this->controle->usuario->$get($_COOKIE["uaiid"]);
+            $navegacao->set("navegacaoEspecifica", Navegacao::$navegacaoTipo($usuario));
+        }
+        
+        
         return $navegacao->output();
     }
 
