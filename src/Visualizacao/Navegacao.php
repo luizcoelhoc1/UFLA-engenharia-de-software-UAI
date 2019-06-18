@@ -6,7 +6,8 @@ class Navegacao {
      * TODO Auto-generated comment.
      */
     public function navegacaoAnonimo() {
-        return "";
+        $navegacao = new Template(__DIR__ . "/html/navegacao/anonimo.html");
+        return $navegacao->output();
     }
 
     /**
@@ -23,14 +24,18 @@ class Navegacao {
      * TODO Auto-generated comment.
      */
     public function navegacaoAdministrador($administrador) {
-        return "";
+        $navegacao = new Template(__DIR__ . "/html/navegacao/administrador.html");
+        $navegacao->set("nome", $administrador->getNome());
+        return $navegacao->output();
     }
 
     /**
      * TODO Auto-generated comment.
      */
     public function navegacaoFuncionario($funcionario) {
-        return "";
+        $navegacao = new Template(__DIR__ . "/html/navegacao/administrador.html");
+        $navegacao->set("nome", $funcionario->getNome());
+        return $navegacao->output();
     }
 
 }
