@@ -12,6 +12,7 @@ class Projeto {
 	private $genero;
 	private $fundo;
 
+
 	/**
 	 * TODO Auto-generated comment.
 	 */
@@ -88,8 +89,8 @@ class Projeto {
 	public function setGenero($genero) {
 		return "";
 	}
-	
-	/** 
+
+	/**
 	* TODO, adicionei isso aqui depois
 	*/
 	public function apoiar($quantia) {

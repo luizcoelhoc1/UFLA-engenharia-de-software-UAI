@@ -11,44 +11,10 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">UAI</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Projetos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-plus"></i>
-                            Cadastrar nova conta
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-file-alt"></i>
-                            Cadastrar novo projeto
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-arrows-alt-h"></i>
-                            Designar funcion&aacute;narios
-                        </a>
-                    </li>
-                </ul>
-                <div class="my-2 my-lg-0">
-                    [nome_adm]<i class="fas fa-cog"></i>
-                </div>
-            </div>
-        </nav>
+
+        [@navegacao]
 
         <div class="container">
-
-
 
             <h1 style="text-align: center;">Criando um novo projeto!</h1>
             <form style="border: lightgray solid 1px; padding: 3% 10% 3% 10%;">
@@ -59,7 +25,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Nome do projeto</div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Digite o nome do projeto">
+                                <input type="text" value="[@nome]" name="nome" class="form-control" placeholder="Digite o nome do projeto">
                             </div>
                         </div>
                     </div>
@@ -71,7 +37,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">G&ecirc;neros</div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Digite os g&ecirc;neros do projeto!">
+                                <input type="text" value="[@genero]" name="genero"  class="form-control" placeholder="Digite os g&ecirc;neros do projeto!">
                             </div>
                         </div>
                     </div>
@@ -83,7 +49,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Autor</div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Digite o nome do autor">
+                                <input type="text" value="[@autor]" name="autor"  class="form-control" placeholder="Digite o nome do autor">
                             </div>
                         </div>
                     </div>
@@ -95,7 +61,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Fonte original do projeto</div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Digite qual a fonte original do projeto">
+                                <input type="text" value="[@fonte]" name="fonte" class="form-control" placeholder="Digite qual a fonte original do projeto">
                             </div>
                         </div>
                     </div>
@@ -108,7 +74,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Sinopse</div>
                                 </div>
-                                <textarea class="form-control"></textarea>
+                                <textarea value="[@sinopse]" name="sinopse" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>

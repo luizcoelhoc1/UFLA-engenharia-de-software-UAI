@@ -37,5 +37,5 @@ class Navegacao {
         $navegacao->set("nome", $funcionario->getNome());
         return $navegacao->output();
     }
-
+    
 }

@@ -1,7 +1,7 @@
 <?php
 
 class ControleUsuario {
-    
+
     /***
     * Seta cookie do login se existir conta
     */
@@ -12,15 +12,23 @@ class ControleUsuario {
             return false;
         } else {
             ob_start();
-            setcookie("uaiid", $resultado->fetchObject()->id);
-            echo "logado";
+            $usuario = $resultado->fetchObject();
+            setcookie("uaiid", $usuario->id);
+            $_COOKIE["uaiid"] = $usuario->id;
             ob_end_flush();
             return true;
         }
     }
 
+    public funcion adicionarDinheiroCarteira($id, $quantidade) {
+      $conexao = Transacao::get();
+      $conexao->query("UPDATE financiador set carteira = carteira+$quantidade where id = $id");
+      
+    }
+
+
     /***
-    * função auxiliar do get tipo usuário para verificar o tipo de usuário 
+    * função auxiliar do get tipo usuário para verificar o tipo de usuário
     */
     private function isTipoUsuario($tipo, $id) {
         $conexao = Transacao::get();
@@ -51,12 +59,12 @@ class ControleUsuario {
     */
     public function novoFinanciador($nome, $cpf, $email, $senha) {
         $conexao = Transacao::get();
-        
+
         //verifica se as unique key já não existem
         if (Transacao::exists("usuario", "cpf", $cpf) || Transacao::exists("usuario", "email", $email)) {
             return false;
         }
-        
+
         //insere o financiador
         $conexao->query("INSERT INTO `usuario`(`nome`, `cpf`, `email`, `senha`) VALUES ('$nome', '$cpf', '$email', '$senha')");
         $idUsuario = Transacao::ultimoIdInserido();
@@ -70,43 +78,49 @@ class ControleUsuario {
      */
     public function setUsuario($usuario) {
         $conexao = Transacao::get();
-        
+
         //montando o where do select para verificação de email e cpf existentes
         $selectWhere = array();
         $selectWhere[] = " cpf = '" . $usuario->getCpf() . "'";
         $selectWhere[] = " email = '" . $usuario->getEmail() . "'";
         $update = $selectWhere;
-        
+
         //Verifica se existe email ou cpf editados
         $selectWhere = implode(" or ", $update);
         $resultado = $conexao->query($sql = "select * from usuario where (id <> '" . $_COOKIE["uaiid"]. "') and ($selectWhere)");
         if ($resultado->rowCount()) {
             return false;
         }
-        
-        //monta o set do UPDATE 
+
+        //monta o set do UPDATE
         $update[] = " nome = '" . $usuario->getNome() . "'";
         $update[] = " cpf = '" . $usuario->getCpf() . "'";
         $update[] = " email = '" . $usuario->getEmail() . "'";
         if ($usuario->getSenha() != null) {
             $update[] = " senha = '" . $usuario->getSenha() . "'";
         }
-        
+
         //atualiza
         $conexao->query("UPDATE `usuario` SET " . implode(", ",$update) . " WHERE id = '" . $_COOKIE["uaiid"] . "'");
-        
+
         return true;
     }
-    
+
     /**
      * TODO Auto-generated comment.
      */
     public function getAdministrador($id) {
-        return null;
-    }
+      $conexao = Transacao::get();
+      $resposta = $conexao->query("select * from usuario inner join administrador on usuario.id = administrador.idUsuario where usuario.id = '$id'");
+      $std = $resposta->fetchObject();
+      if ($std == null) {
+          return null;
+      }
+      return new Administrador($std->cpf, $std->email, $std->nome, $std->senha, $std->id);
+  }
 
     /**
-     * retorna um objeto Financiador com os dados do Financiador com o id do id passado por parâmetro 
+     * retorna um objeto Financiador com os dados do Financiador com o id do id passado por parâmetro
      */
     public function getFinanciador($id) {
         $conexao = Transacao::get();
@@ -140,18 +154,19 @@ class ControleUsuario {
     }
 
     /***
-    * Deleta a conta do banco de dados com o id passado por parâmetro 
+    * Deleta a conta do banco de dados com o id passado por parâmetro
     */
     public function deletarConta($id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("delete from usuario where id = '$id'");
         return ($resultado->rowCount() == true);
     }
-    
+
     /***
     * Desloga
     */
     public function deslogar() {
-        setcookie("uaiid", null, -1, "/");
+        unset($_COOKIE["uaiid"]);
+        setcookie("uaiid", null, time() - 1);
     }
 }
