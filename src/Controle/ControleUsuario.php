@@ -20,7 +20,7 @@ class ControleUsuario {
         }
     }
 
-    public funcion adicionarDinheiroCarteira($id, $quantidade) {
+    public function adicionarDinheiroCarteira($id, $quantidade) {
       $conexao = Transacao::get();
       $conexao->query("UPDATE financiador set carteira = carteira+$quantidade where id = $id");
       

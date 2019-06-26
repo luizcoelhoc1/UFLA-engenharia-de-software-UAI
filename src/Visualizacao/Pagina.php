@@ -7,47 +7,79 @@ class Pagina {
 
     public function __construct() {
         $this->controle = new Controle();
-        $this->$atributosProjeto = ["nome", "generos", "autor", "fonte", "sinopse"];
+        $this->atributosProjeto = ["nome", "generos", "autor", "fonte", "sinopse"];
+    }
+
+    public function homePage() {
+        return $this->projeto();
     }
 
     /**
      * TODO Auto-generated comment.
      */
     public function projeto() {
+        $pagina = new Template(__DIR__ . "/html/projeto/index.html");
+
+        //get tipo da pagina
         if (isset($_COOKIE["uaiid"])) {
-          $tipoPagina = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
+            $tipoPagina = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
         } else {
-          $tipoPagina = "anonimo";
+            $tipoPagina = "anonimo";
         }
         $tipoPagina = ucfirst($tipoPagina);
-
-        $pagina = new Template(__DIR__ . "/html/projeto/index.html");
 
         // Navegação
         $pagina->set("navegacao", $this->navegacao($tipoPagina));
 
+        // Mensagem
+        if (Mensagem::exists()) {
+            $mensagem = new Template(__DIR__ . "/html/mensagem.html");
+            $mensagem->set("type", (Mensagem::type() == Mensagem::SUCCESSS) ? "success" : "danger");
+            $mensagem->set("msg", Mensagem::msg());
+            $pagina->set("msg", $mensagem->output());
+        } else {
+            $pagina->set("msg", "");
+        }
+
         // projetos
         $projetos = $this->controle->projeto->getProjetos();
         if (count($projetos) == 0) {
-          $semProjetos = new Template(__DIR__ . "/html/projeto/semProjetos.html");
-          $pagina->set("projetos", $semProjetos->output());
+            $semProjetos = new Template(__DIR__ . "/html/projeto/semProjetos.html");
+            $pagina->set("projetos", $semProjetos->output());
         } else {
-          $projetosHTML = "";
-          foreach ($projetos as $projeto) {
-            $projetoTemplate = new Template(__DIR__ . "/html/projeto/projeto$tipoPagina.html");
-            foreach ($projeto as $key => $value)
-              $projetoTemplate->set($key, $value);
-            $projetosHTML .= $projetoTemplate->output();
-          }
-          $pagina->set("projetos", $projetosHTML);
+            $projetosHTML = "";
+            foreach ($projetos as $projeto) {
+                $projetoTemplate = new Template(__DIR__ . "/html/projeto/projeto$tipoPagina.html");
+                foreach ($projeto as $key => $value)
+                    $projetoTemplate->set($key, $value);
+                $projetosHTML .= $projetoTemplate->output();
+            }
+            $pagina->set("projetos", $projetosHTML);
         }
+
+        // JavaScript para o ADM
+        $pagina->set("scriptADM", ($tipoPagina == "Administrador") ? '<script src="Visualizacao/javascript/adm.js"></script>' : "");
 
         return $pagina->output();
     }
 
-    /***
+    public function excluirProjeto() {
+        if (!isset($_GET["id"])) {
+            throw new Exception("Nenhum Id de projeto foi passado para ser excluido");
+        }
+        $excluiu = $this->controle->projeto->excluirProjeto($_GET["id"]);
+        if (!$excluiu) {
+            throw new Exception("Não foi possível excluir nenhum projeto!");
+        }
+
+        Mensagem::set("Projeto excluido com sucesso", Mensagem::SUCCESSS);
+        return $this->homePage();
+    }
+
+    /*     * *
      * Retorna a página de login e caso o usuário mande um POST é feito o login e retornado a pagina inicial
      */
+
     public function login() {
         $pagina = new Template(__DIR__ . "/html/login/login.html");
 
@@ -59,13 +91,13 @@ class Pagina {
                 $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
                 return $this->projeto($tipo);
             } else {
-            // Login errado
+                // Login errado
                 $pagina->set("erro", "block");
                 $pagina->set("email", $_POST["email"]);
                 $pagina->set("senha", $_POST["senha"]);
             }
         } else {
-        //Caso não exista
+            //Caso não exista
             $pagina->set("erro", "none");
             $pagina->set("email", "");
             $pagina->set("senha", "");
@@ -74,9 +106,10 @@ class Pagina {
         return $pagina->output();
     }
 
-    /***
+    /*     * *
      * Retorna a página de cadastrar-se ou cadastra um novo financiador verificando se existe POST ou não
      */
+
     public function cadastrarSe() {
         //Caso exista post (usuário clicou no botão de cadastrar-se)
         if (isset($_POST["nome"]) && isset($_POST["cpf"]) && isset($_POST["email"]) && isset($_POST["senha"])) {
@@ -91,7 +124,7 @@ class Pagina {
                 $pagina->set("erroMsg", "Cpf ou email j&aacute; existentes");
             }
         } else {
-        //Caso tenha acabado de clicar na página de cadastrar-se
+            //Caso tenha acabado de clicar na página de cadastrar-se
             $pagina = new Template(__DIR__ . "/html/login/cadastrarSe.html");
             $pagina->set("nome", "");
             $pagina->set("email", "");
@@ -106,22 +139,23 @@ class Pagina {
      * TODO Auto-generated comment.
      */
     public function adicionarDinheiroCarteira() {
-      $pagina = new Template(__DIR__ . "/html/carteira/index.html");
-      if (isset($_POST["fundo"])) {
-        $adicionado = $this->controle->usuario($_COOKIE["uaiid"], $_POST["fundo"]);
-        if ($adicionado) {
-          $_COOKIE["MSG"] = "Adicionado com sucesso";
-          return $this->projeto();
-        } else {
-          $pagina->set("msg", "Não foi possível adicionar");
+        $pagina = new Template(__DIR__ . "/html/carteira/index.html");
+        if (isset($_POST["fundo"])) {
+            $adicionado = $this->controle->usuario($_COOKIE["uaiid"], $_POST["fundo"]);
+            if ($adicionado) {
+                $_COOKIE["MSG"] = "Adicionado com sucesso";
+                return $this->projeto();
+            } else {
+                $pagina->set("msg", "Não foi possível adicionar");
+            }
         }
-      }
     }
 
     /**
      * TODO Auto-generated comment.
      */
     public function criarContas() {
+        
     }
 
     /**
@@ -129,27 +163,30 @@ class Pagina {
      */
     public function criarProjeto() {
 
-          $pagina = new Template(__DIR__ . "/html/projeto/criarProjeto.html");
-
-          $pagina->set("navegacao", $this->navegacao());
+        $pagina = new Template(__DIR__ . "/html/projeto/criarProjeto.html");
 
 
-          if (isSetPost($this->$atributosProjeto)) {
-            $criou = $this->controle->criarProjeto();
+        if (isSetPost($this->atributosProjeto)) {
+            $novoProjeto = Projeto::newByPost();
+            $criou = $this->controle->projeto->criarProjeto($novoProjeto);
             if ($criou) {
-              $_COOKIE["MSG"] = "Inserido com sucesso o novo projeto";
-              return $this->projeto();
+                Mensagem::set("Inserido com sucesso o novo projeto", Mensagem::SUCCESSS);
+                return $this->projeto();
             } else {
+                Mensagem::set("Não foi possível criar o projeto", Mensagem::FAILURE);
                 foreach ($this->atributosProjeto as $atr) {
-                  $pagina->set($atr, $_POST[$atr]);
+                    $pagina->set($atr, $_POST[$atr]);
                 }
             }
-          } else {
+        } else {
             foreach ($this->atributosProjeto as $atr) {
-              $pagina->set($atr, "");
+                $pagina->set($atr, "");
             }
-          }
-          return $pagina->output();
+        }
+
+        $pagina->set("navegacao", $this->navegacao());
+
+        return $pagina->output();
     }
 
     /**
@@ -160,35 +197,28 @@ class Pagina {
     }
 
     public function editarProjeto() {
-      if (!isSetPost($this->atributosProjeto)) {
-        $projeto = $controle->projeto->getProjeto($_POST["id"]);
-        foreach ($this->atributosProjeto as $key => $atr) {
-          $get = "get" . upi($atr);
-          $set = "set" . upi($atr);
-          if ($projeto->$get == $_POST[$atr]) {
-            $set = "set" . upi($atr);
-            $projetos->$tmp(null);
-          } else {
-            $projetos->$tmp($_POST[$atr]);
-          }
-        }
-        $projeto->setId($_POST["id"]);
+        if (isSetPost($this->atributosProjeto) && isset($_POST["id"])) {
+            $projeto = $this->controle->projeto->getProjeto($_POST["id"]);
 
-        $editado = $this->controle->projeto->setProjeto($projeto);
-        if ($editado) {
-          $_COOKIE["MSG"] = "Editado com sucesso";
-        } else {
-          $_COOKIE["MSG"] = "Não foi possível editar!";
-        }
-        return $this->projeto();
+            foreach ($this->atributosProjeto as $atr) {
+                $set = "set" . ucfirst($atr);
+                $projeto->$set($_POST[$atr]);
+            }
 
-      }
+            $editado = $this->controle->projeto->setProjeto($projeto);
+            if ($editado) {
+                Mensagem::set("Editado com sucesso", Mensagem::SUCCESSS);
+            } else {
+                Mensagem::set("Não foi possível editar!", Mensagem::FAILURE);
+            }
+            return $this->homePage();
+        }
     }
 
+    /*     * *
+     * Monta a navegação da pagina baseado no cookie uaiid
+     */
 
-    /***
-    * Monta a navegação da pagina baseado no cookie uaiid
-    */
     public function navegacao($tipo = null) {
         $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
 
@@ -203,22 +233,22 @@ class Pagina {
 
         //Monta a navegação
         if (strtolower($tipo) == "anonimo") {
-          $navegacao->set("navegacaoEspecifica", Navegacao::navegacaoAnonimo());
+            $navegacao->set("navegacaoEspecifica", Navegacao::navegacaoAnonimo());
         } else {
-          $get = "get" . ucfirst($tipo);
-          $navegacaoTipo = "navegacao" . ucfirst($tipo);
-          $usuario = $this->controle->usuario->$get($_COOKIE["uaiid"]);
-          $navegacao->set("navegacaoEspecifica", Navegacao::$navegacaoTipo($usuario));
+            $get = "get" . ucfirst($tipo);
+            $navegacaoTipo = "navegacao" . ucfirst($tipo);
+            $usuario = $this->controle->usuario->$get($_COOKIE["uaiid"]);
+            $navegacao->set("navegacaoEspecifica", Navegacao::$navegacaoTipo($usuario));
         }
 
 
         return $navegacao->output();
     }
 
+    /*     * *
+     * Retorna a página de edição de dados pessoais e realiza as mudanças dependendo se existe ou não POST
+     */
 
-    /***
-    * Retorna a página de edição de dados pessoais e realiza as mudanças dependendo se existe ou não POST
-    */
     public function editarDadosPessoais() {
         if (isset($_COOKIE["uaiid"])) {
             $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
@@ -240,17 +270,19 @@ class Pagina {
         echo $pagina->output();
     }
 
-    /***
-    * Deleta uma conta e retorna a página inicial no modo anonimo
-    */
+    /*     * *
+     * Deleta uma conta e retorna a página inicial no modo anonimo
+     */
+
     public function deletarConta() {
         $this->controle->usuario->deletarConta($_COOKIE["uaiid"]);
         return $this->projeto("anonimo");
     }
 
-    /***
-    * Desloga e retorna a página inicial no modo anonimo
-    */
+    /*     * *
+     * Desloga e retorna a página inicial no modo anonimo
+     */
+
     public function deslogar() {
         $this->controle->usuario->deslogar();
         return $this->projeto();

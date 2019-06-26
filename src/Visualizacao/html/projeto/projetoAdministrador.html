@@ -1,125 +1,149 @@
-            <div class="box" >
-                <div class="row">
-                    <div class="col center">
-                        <h2>[@nome]</h2>
-                    </div>
-                </div>
+<div class="box" >
+    <div class="row">
+        <div class="col center">
+            <h2>[@nome]</h2>
+        </div>
+    </div>
 
-                <div class="row">
-                    <div class="col-md-6 center">
-                        <strong>Feito por</strong> [@autor]
-                    </div>
-                    <div class="col-md-6 center">
-                        <strong>Fonte:</strong> [@fonte]
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-6 center">
+            <strong>Feito por</strong> [@autor]
+        </div>
+        <div class="col-md-6 center">
+            <strong>Fonte:</strong> [@fonte]
+        </div>
+    </div>
 
-                <div class="row">
-                    <div class="col center">
-                        <strong>G&ecirc;neros:</strong> [@generos]
-                    </div>
-                </div>
-                <div class="col-md-12 ">
-                    <div class="login-or">
-                        <hr class="hr-or">
-                        <span class="span-or"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col center">
-                        [@sinopse]
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4 col-sm-12">
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#aaa">Editar/Excluir</button>
-                    </div>
-                </div>
-            </div>
-            <br />
+    <div class="row">
+        <div class="col center">
+            <strong>G&ecirc;neros:</strong> [@generos]
+        </div>
+    </div>
+    <div class="col-md-12 ">
+        <div class="login-or">
+            <hr class="hr-or">
+            <span class="span-or"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col center">
+            [@sinopse]
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4 col-sm-12">
+            <button class="btn btn-warning" data-toggle="modal" data-target="#modal-[@id]">Editar/Excluir</button>
+        </div>
+    </div>
+</div>
+<br />
 
 
-            <form method="post" action="?a=">
-                <div class="modal fade" id="aaa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Mude o projeto</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="form">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Nome do projeto</div>
-                                                </div>
-                                                <input value="[Nome do projeto 1]" type="text" class="form-control" placeholder="Digite o nome do projeto">
-                                            </div>
-                                        </div>
+<form method="post" action="?a=editarProjeto">
+    <input type="hidden" name="id" value="[@id]" />
+    <div class="modal fade" id="modal-[@id]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mude o projeto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Nome do projeto</div>
                                     </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">G&ecirc;neros</div>
-                                                </div>
-                                                <input value="[Generos do projeto 1]" type="text" class="form-control" placeholder="Digite os g&ecirc;neros do projeto!">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Autor</div>
-                                                </div>
-                                                <input value="[Nome do autor do projeto 1]" type="text" class="form-control" placeholder="Digite o nome do autor">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Fonte original do projeto</div>
-                                                </div>
-                                                <input value="[Fonte do projeto 1]" type="text" class="form-control" placeholder="Digite qual a fonte original do projeto">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-md">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Sinopse</div>
-                                                </div>
-                                                <textarea class="form-control">[Sinopse do projeto 1] </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input name="nome" value="[@nome]" type="text" class="form-control" placeholder="Digite o nome do projeto">
                                 </div>
-
-
-
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Excluir Projeto</button>
-                                <button type="button" class="btn btn-warning">Editar!</button>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">G&ecirc;neros</div>
+                                    </div>
+                                    <input name="generos" value="[@generos]" type="text" class="form-control" placeholder="Digite os g&ecirc;neros do projeto!">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Autor</div>
+                                    </div>
+                                    <input name="autor" value="[@autor]" type="text" class="form-control" placeholder="Digite o nome do autor">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Fonte original do projeto</div>
+                                    </div>
+                                    <input name="fonte" value="[@fonte]" type="text" class="form-control" placeholder="Digite qual a fonte original do projeto">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Sinopse</div>
+                                    </div>
+                                    <textarea name="sinopse" class="form-control">[@sinopse]</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-excluir-[@id]" >Excluir Projeto </button>
+                    <button type="submit" class="btn btn-warning">Editar!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="modal fade" id="modal-excluir-[@id]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Projeto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Voc&ecirc; tem certeza que deseja excluir esse projeto? Essa a&ccedil;&atilde;o ser&aacute; irrevers&iacute;vel!
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                <a href="?a=excluirProjeto&id=[@id]"><button type="button" class="btn btn-danger" > Sim </button></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,79 +1,116 @@
 <?php
+
 /**
  * TODO Auto-generated comment.
  */
 class ControleProjeto {
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function doar($idProjeto, $financiador, $quantidade) {
-		$conexao = Transacao::get();
-		$conexao->query("UPDATE projeto set fundo=fundo+$quantidade where idProjeto = $idProjeto");
-		$conexao->query("UPDATE financiador set cartera=carteira-$quantidade where idProjeto = $idProjeto");
-		$conexao->query("INSERT historico ");
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function doar($idProjeto, $financiador, $quantidade) {
+        $conexao = Transacao::get();
+        $conexao->query("UPDATE projeto set fundo=fundo+$quantidade where idProjeto = $idProjeto");
+        $conexao->query("UPDATE financiador set cartera=carteira-$quantidade where idProjeto = $idProjeto");
+        $conexao->query("INSERT historico ");
+    }
 
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function designarFuncionario($idFuncionario, $idProjeto) {
+        return false;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function designarFuncionario($idFuncionario, $idProjeto) {
-		return false;
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function excluirProjeto($idProjeto) {
+        $conexao = Transacao::get();
+        $resultado = $conexao->query("DELETE FROM projeto WHERE id = $idProjeto");
+        if ($resultado->rowCount()) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function excluirProjeto($idProjeto) {
-		$conexao = Transacao::get();
-		$resultado = $conexao->query("");
-		if ($resultado->rowCount()) {
-				return true;
-		}
-		return false;
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function getProjetos() {
+        $conexao = Transacao::get();
+        $resultado = $conexao->query("SELECT * FROM projeto ORDER BY `projeto`.`dataDeCriacao` DESC");
+        $projetos = array();
+        $projeto = $resultado->fetchObject();
+        while ($projeto != null) {
+            $projetos[] = $projeto;
+            $projeto = $resultado->fetchObject();
+        }
+        return $projetos;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getProjetos() {
-		$conexao = Transacao::get();
-		$resultado = $conexao->query("select * from projeto");
-		$projetos = array();
-		$projeto = $resultado->fetchObject();
-		while ($projeto != null) {
-			$projetos[] = $projeto;
-			$projeto = $resultado->fetchObject();
-		}
-		return $projetos;
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function getProjeto($idProjeto) {
+        $conexao = Transacao::get();
+        $resultado = $conexao->query("SELECT * FROM projeto WHERE id = $idProjeto");
+        $obj = $resultado->fetchObject();
+        if ($obj == null) {
+            return null;
+        }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getProjeto($idProjeto) {
-		return null;
-	}
+        $projeto = new Projeto();
+        foreach ($obj as $atr => $valor) {
+            $set = "set" . ucfirst($atr);
+            $projeto->$set($valor);
+        }
+        return $projeto;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function setProjeto($projeto) {
-		return false;
-	}
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function setProjeto($projeto) {
+        $conexao = Transacao::get();
+        $updateSet = array();
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function criarProjeto($projeto) {
-		$conexao = Transacao::get();
-		$resultado = $conexao->query("");
-		if ($resultado->rowCount()) {
-				return true;
-		}
-		return false;
+        $reflect = new ReflectionClass($projeto);
+        $props = $reflect->getProperties(ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PUBLIC);
 
+        foreach ($props as $prop) {
+            $atr = $prop->getName();
+            $get = "get" . ucfirst($prop->getName());
+            $value = $projeto->$get();
+            $updateSet[] = "$atr = '$value'";
+        }
 
-	}
+        $resultado = $conexao->query("UPDATE projeto SET " . implode(", ", $updateSet) . " WHERE id =' " . $projeto->getId() . "'");
+        if ($resultado->rowCount()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * TODO Auto-generated comment.
+     */
+    public function criarProjeto($projeto) {
+        $conexao = Transacao::get();
+
+        $nome = $projeto->getNome();
+        $fonte = $projeto->getFonte();
+        $autor = $projeto->getAutor();
+        $sinopse = $projeto->getSinopse();
+        $generos = $projeto->getGeneros();
+        $fundo = $projeto->getFundo();
+        $resultado = $conexao->query("INSERT INTO `projeto` "
+                . "(`nome`, `fonte`, `autor`, `sinopse`, `generos`, `fundo`) "
+                . "VALUES ('$nome', '$fonte', '$autor', '$sinopse', '$generos', '$fundo');");
+        if ($resultado->rowCount()) {
+            return true;
+        }
+        return false;
+    }
+
 }

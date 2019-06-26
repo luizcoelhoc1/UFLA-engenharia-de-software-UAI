@@ -1,101 +1,101 @@
 <?php
+
 /**
  * TODO Auto-generated comment.
  */
 class Projeto {
 
-	private $id;
-	private $nome;
-	private $fonte;
-	private $autor;
-	private $sinopse;
-	private $genero;
-	private $fundo;
+    private $id;
+    private $nome;
+    private $fonte;
+    private $autor;
+    private $sinopse;
+    private $generos;
+    private $fundo;
+    private $dataDeCriacao;
 
+    function getId() {
+        return $this->id;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getId() {
-		return 0;
-	}
+    function getNome() {
+        return $this->nome;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getNome() {
-		return "";
-	}
+    function getFonte() {
+        return $this->fonte;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getFonte() {
-		return "";
-	}
+    function getAutor() {
+        return $this->autor;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getAutor() {
-		return "";
-	}
+    function getSinopse() {
+        return $this->sinopse;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getSinopse() {
-		return "";
-	}
+    function getGeneros() {
+        return $this->generos;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function getGenero() {
-		return "";
-	}
+    function getFundo() {
+        return $this->fundo;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function set($nome) {
-		return "";
-	}
+    function getDataDeCriacao() {
+        return $this->dataDeCriacao;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function setFonte($fonte) {
-		return "";
-	}
+    function setId($id) {
+        $this->id = $id;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function setAutor($autor) {
-		return "";
-	}
+    function setNome($nome) {
+        $this->nome = $nome;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function setSinopse($sinopse) {
-		return "";
-	}
+    function setFonte($fonte) {
+        $this->fonte = $fonte;
+    }
 
-	/**
-	 * TODO Auto-generated comment.
-	 */
-	public function setGenero($genero) {
-		return "";
-	}
+    function setAutor($autor) {
+        $this->autor = $autor;
+    }
 
-	/**
-	* TODO, adicionei isso aqui depois
-	*/
-	public function apoiar($quantia) {
-		if ($quantia <= 0) {
-			return False;
-		} else return True;
-	}
+    function setSinopse($sinopse) {
+        $this->sinopse = $sinopse;
+    }
+
+    function setGeneros($generos) {
+        $this->generos = $generos;
+    }
+
+    function setFundo($fundo) {
+        $this->fundo = $fundo;
+    }
+
+    function setDataDeCriacao($dataDeCriacao) {
+        $this->dataDeCriacao = $dataDeCriacao;
+    }
+
+    /**
+     * TODO, adicionei isso aqui depois
+     */
+    public function apoiar($quantia) {
+        if ($quantia <= 0) {
+            return False;
+        } else
+            return True;
+    }
+
+    static public function newByPost() {
+        $projeto = new Projeto();
+        foreach ($_POST as $chave => $valor) {
+            if (method_exists($projeto, ($metodo = "set" . ucfirst($chave)))) {
+                $projeto->$metodo($valor);
+            }
+        } 
+       return $projeto;
+    }
+
 }
