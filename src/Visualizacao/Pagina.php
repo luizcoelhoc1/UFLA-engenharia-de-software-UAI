@@ -135,20 +135,37 @@ class Pagina {
         return $pagina->output();
     }
 
+    public function doar() {
+        if (isSetPost(["doacao", "idProjeto"])) {
+            $doado = $this->controle->projeto->doar($_POST["idProjeto"], $_COOKIE["uaiid"], $_POST["doacao"]);
+            if ($doado) {
+                Mensagem::set("Sua doação foi concluida", Mensagem::SUCCESSS);
+            } else {
+                Mensagem::set("Não foi possível completar sua doação");
+            }
+        }
+        return $this->homePage();
+    }
+
     /**
      * TODO Auto-generated comment.
      */
     public function adicionarDinheiroCarteira() {
         $pagina = new Template(__DIR__ . "/html/carteira/index.html");
-        if (isset($_POST["fundo"])) {
-            $adicionado = $this->controle->usuario($_COOKIE["uaiid"], $_POST["fundo"]);
+        if (isset($_POST["carteira"])) {
+            $adicionado = $this->controle->usuario->adicionarDinheiroCarteira($_COOKIE["uaiid"], $_POST["carteira"]);
             if ($adicionado) {
-                $_COOKIE["MSG"] = "Adicionado com sucesso";
-                return $this->projeto();
+                Mensagem::set("Adicionado com sucesso", Mensagem::SUCCESSS);
+                return $this->homePage();
             } else {
                 $pagina->set("msg", "Não foi possível adicionar");
             }
         }
+        $pagina->set("navegacao", $this->navegacao());
+        $financiador = $this->controle->usuario->getFinanciador($_COOKIE["uaiid"]);
+        $pagina->set("carteira", $financiador->getCarteira());
+
+        return $pagina->output();
     }
 
     /**

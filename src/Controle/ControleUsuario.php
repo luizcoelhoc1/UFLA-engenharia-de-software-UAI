@@ -1,10 +1,10 @@
 <?php
 
 class ControleUsuario {
+    /*     * *
+     * Seta cookie do login se existir conta
+     */
 
-    /***
-    * Seta cookie do login se existir conta
-    */
     public function realizarLogin($email, $senha) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select id from usuario where email = '$email' and senha = '$senha'");
@@ -21,15 +21,20 @@ class ControleUsuario {
     }
 
     public function adicionarDinheiroCarteira($id, $quantidade) {
-      $conexao = Transacao::get();
-      $conexao->query("UPDATE financiador set carteira = carteira+$quantidade where id = $id");
-      
+        $conexao = Transacao::get();
+        $resultado = $conexao->query($sql = "UPDATE financiador set carteira = carteira+$quantidade where idUsuario = $id");
+        
+        if ($resultado->rowCount()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    /*     * *
+     * função auxiliar do get tipo usuário para verificar o tipo de usuário
+     */
 
-    /***
-    * função auxiliar do get tipo usuário para verificar o tipo de usuário
-    */
     private function isTipoUsuario($tipo, $id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select idUsuario from $tipo where idUsuario = '$id'");
@@ -40,9 +45,10 @@ class ControleUsuario {
         }
     }
 
-    /***
-    * Retorna o tipo de usuário do id passado ou null caso não seja de nenhum tipo especificado
-    */
+    /*     * *
+     * Retorna o tipo de usuário do id passado ou null caso não seja de nenhum tipo especificado
+     */
+
     public function getTipoUsuario($id) {
         $tipos = array("financiador", "administrador", "funcionario");
         foreach ($tipos as $tipo) {
@@ -53,10 +59,11 @@ class ControleUsuario {
         return null;
     }
 
-    /***
-    * Cadastra novo funcionário e realiza login caso seja criado com sucesso
-    * Retorna true para caso todos os procedimentos sejam executados com sucesso e false caso contrário
-    */
+    /*     * *
+     * Cadastra novo funcionário e realiza login caso seja criado com sucesso
+     * Retorna true para caso todos os procedimentos sejam executados com sucesso e false caso contrário
+     */
+
     public function novoFinanciador($nome, $cpf, $email, $senha) {
         $conexao = Transacao::get();
 
@@ -73,9 +80,10 @@ class ControleUsuario {
         return $this->realizarLogin($email, $senha);
     }
 
-    /***
+    /*     * *
      * Muda dos dados do usuário passado por parâmetro e fixa no banco de dados
      */
+
     public function setUsuario($usuario) {
         $conexao = Transacao::get();
 
@@ -87,7 +95,7 @@ class ControleUsuario {
 
         //Verifica se existe email ou cpf editados
         $selectWhere = implode(" or ", $update);
-        $resultado = $conexao->query($sql = "select * from usuario where (id <> '" . $_COOKIE["uaiid"]. "') and ($selectWhere)");
+        $resultado = $conexao->query($sql = "select * from usuario where (id <> '" . $_COOKIE["uaiid"] . "') and ($selectWhere)");
         if ($resultado->rowCount()) {
             return false;
         }
@@ -101,7 +109,7 @@ class ControleUsuario {
         }
 
         //atualiza
-        $conexao->query("UPDATE `usuario` SET " . implode(", ",$update) . " WHERE id = '" . $_COOKIE["uaiid"] . "'");
+        $conexao->query("UPDATE `usuario` SET " . implode(", ", $update) . " WHERE id = '" . $_COOKIE["uaiid"] . "'");
 
         return true;
     }
@@ -110,14 +118,14 @@ class ControleUsuario {
      * TODO Auto-generated comment.
      */
     public function getAdministrador($id) {
-      $conexao = Transacao::get();
-      $resposta = $conexao->query("select * from usuario inner join administrador on usuario.id = administrador.idUsuario where usuario.id = '$id'");
-      $std = $resposta->fetchObject();
-      if ($std == null) {
-          return null;
-      }
-      return new Administrador($std->cpf, $std->email, $std->nome, $std->senha, $std->id);
-  }
+        $conexao = Transacao::get();
+        $resposta = $conexao->query("select * from usuario inner join administrador on usuario.id = administrador.idUsuario where usuario.id = '$id'");
+        $std = $resposta->fetchObject();
+        if ($std == null) {
+            return null;
+        }
+        return new Administrador($std->cpf, $std->email, $std->nome, $std->senha, $std->id);
+    }
 
     /**
      * retorna um objeto Financiador com os dados do Financiador com o id do id passado por parâmetro
@@ -132,9 +140,10 @@ class ControleUsuario {
         return new Financiador($std->cpf, $std->email, $std->nome, $std->senha, $std->carteira, $std->id);
     }
 
-    /***
-    * retorna um usuário com o id passado ou null caso não exista no banco de dados
-    */
+    /*     * *
+     * retorna um usuário com o id passado ou null caso não exista no banco de dados
+     */
+
     public function getUsuario($id) {
         $conexao = Transacao::get();
         $resposta = $conexao->query("select * from usuario where id = '$id'");
@@ -153,20 +162,23 @@ class ControleUsuario {
         return null;
     }
 
-    /***
-    * Deleta a conta do banco de dados com o id passado por parâmetro
-    */
+    /*     * *
+     * Deleta a conta do banco de dados com o id passado por parâmetro
+     */
+
     public function deletarConta($id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("delete from usuario where id = '$id'");
         return ($resultado->rowCount() == true);
     }
 
-    /***
-    * Desloga
-    */
+    /*     * *
+     * Desloga
+     */
+
     public function deslogar() {
         unset($_COOKIE["uaiid"]);
         setcookie("uaiid", null, time() - 1);
     }
+
 }

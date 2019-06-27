@@ -8,11 +8,22 @@ class ControleProjeto {
     /**
      * TODO Auto-generated comment.
      */
-    public function doar($idProjeto, $financiador, $quantidade) {
+    public function doar($idProjeto, $idFinanciador, $quantidade) {
         $conexao = Transacao::get();
-        $conexao->query("UPDATE projeto set fundo=fundo+$quantidade where idProjeto = $idProjeto");
-        $conexao->query("UPDATE financiador set cartera=carteira-$quantidade where idProjeto = $idProjeto");
-        $conexao->query("INSERT historico ");
+
+        $resultado = $conexao->query("select * from financiador where idUsuario=$idFinanciador");
+        $financiador = $resultado->fetchObject();
+        if ($financiador->carteira > $quantidade) {
+            $conexao->query("UPDATE projeto set fundo=fundo+$quantidade where id = $idProjeto");
+            $conexao->query("UPDATE financiador set carteira=carteira-$quantidade where idUsuario = $idFinanciador");
+            $conexao->query("INSERT INTO `historicodoacao`"
+                    . "(`idProjeto`, `idFinanciador`, `quantia`)"
+                    . " VALUES ('$idProjeto', '$idFinanciador', $quantidade)");
+        } else {
+            throw new Exception("Dinheiro insuficiente");
+        }
+        
+        return true;
     }
 
     /**
