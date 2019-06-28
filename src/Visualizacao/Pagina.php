@@ -21,6 +21,35 @@ class Pagina {
     public function homePage() {
         return $this->projeto();
     }
+    
+     /**
+     * Monta a navegação da pagina baseado no cookie uaiid
+     *  */
+    public function navegacao($tipo = null) {
+        $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
+
+        //Acha o tipo da navegação
+        if ($tipo == null) {
+            if (isset($_COOKIE["uaiid"])) {
+                $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
+            } else {
+                $tipo = "anonimo";
+            }
+        }
+
+        //Monta a navegação
+        if (strtolower($tipo) == "anonimo") {
+            $navegacao->set("navegacaoEspecifica", Navegacao::navegacaoAnonimo());
+        } else {
+            $get = "get" . ucfirst($tipo);
+            $navegacaoTipo = "navegacao" . ucfirst($tipo);
+            $usuario = $this->controle->usuario->$get($_COOKIE["uaiid"]);
+            $navegacao->set("navegacaoEspecifica", Navegacao::$navegacaoTipo($usuario));
+        }
+
+
+        return $navegacao->output();
+    }
 
     /**
      * Metodo monta a página de projeto 
@@ -142,7 +171,15 @@ class Pagina {
 
         return $pagina->output();
     }
-
+    
+    /**
+     * Desloga e retorna a página inicial no modo anonimo
+     *  */
+    public function deslogar() {
+        $this->controle->usuario->deslogar();
+        return $this->projeto();
+    }
+    
     /**
      * Retorna a página de cadastrar-se ou cadastra um novo financiador verificando se existe POST ou não
      */
@@ -279,36 +316,7 @@ class Pagina {
             return $this->homePage();
         }
     }
-
-    /**
-     * Monta a navegação da pagina baseado no cookie uaiid
-     *  */
-    public function navegacao($tipo = null) {
-        $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
-
-        //Acha o tipo da navegação
-        if ($tipo == null) {
-            if (isset($_COOKIE["uaiid"])) {
-                $tipo = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
-            } else {
-                $tipo = "anonimo";
-            }
-        }
-
-        //Monta a navegação
-        if (strtolower($tipo) == "anonimo") {
-            $navegacao->set("navegacaoEspecifica", Navegacao::navegacaoAnonimo());
-        } else {
-            $get = "get" . ucfirst($tipo);
-            $navegacaoTipo = "navegacao" . ucfirst($tipo);
-            $usuario = $this->controle->usuario->$get($_COOKIE["uaiid"]);
-            $navegacao->set("navegacaoEspecifica", Navegacao::$navegacaoTipo($usuario));
-        }
-
-
-        return $navegacao->output();
-    }
-
+    
     /**
      * Retorna a página de edição de dados pessoais e realiza as mudanças dependendo se existe ou não POST
      */
@@ -332,23 +340,15 @@ class Pagina {
         }
         echo $pagina->output();
     }
-
-    /*     * *
+    
+    /**
      * Deleta uma conta e retorna a página inicial no modo anonimo
-     */
-
+     *  */
     public function deletarConta() {
         $this->controle->usuario->deletarConta($_COOKIE["uaiid"]);
         return $this->projeto("anonimo");
     }
 
-    /*     * *
-     * Desloga e retorna a página inicial no modo anonimo
-     */
 
-    public function deslogar() {
-        $this->controle->usuario->deslogar();
-        return $this->projeto();
-    }
 
 }
