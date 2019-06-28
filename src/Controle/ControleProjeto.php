@@ -13,7 +13,7 @@ class ControleProjeto {
 
         $resultado = $conexao->query("select * from financiador where idUsuario=$idFinanciador");
         $financiador = $resultado->fetchObject();
-        if ($financiador->carteira > $quantidade) {
+        if ($financiador->carteira >= $quantidade) {
             $conexao->query("UPDATE projeto set fundo=fundo+$quantidade where id = $idProjeto");
             $conexao->query("UPDATE financiador set carteira=carteira-$quantidade where idUsuario = $idFinanciador");
             $conexao->query("INSERT INTO `historicodoacao`"
@@ -22,7 +22,7 @@ class ControleProjeto {
         } else {
             throw new Exception("Dinheiro insuficiente");
         }
-        
+
         return true;
     }
 
@@ -38,6 +38,14 @@ class ControleProjeto {
      */
     public function excluirProjeto($idProjeto) {
         $conexao = Transacao::get();
+        $resultado = $conexao->query("SELECT * FROM `historicodoacao` where idProjeto = $idProjeto");
+        $financiador = $resultado->fetchObject();
+        while ($financiador != null) {
+            $quantidade = $financiador->quantia;
+            $idFinanciador = $financiador->idFinanciador;
+            $conexao->query("UPDATE financiador set carteira=carteira+$quantidade where idUsuario = $idFinanciador");
+            $financiador = $resultado->fetchObject();
+        }
         $resultado = $conexao->query("DELETE FROM projeto WHERE id = $idProjeto");
         if ($resultado->rowCount()) {
             return true;

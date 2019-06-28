@@ -135,6 +135,12 @@ class Pagina {
         return $pagina->output();
     }
 
+    
+    public function devolucao() {
+        
+        
+    }
+    
     public function doar() {
         if (isSetPost(["doacao", "idProjeto"])) {
             $doado = $this->controle->projeto->doar($_POST["idProjeto"], $_COOKIE["uaiid"], $_POST["doacao"]);
