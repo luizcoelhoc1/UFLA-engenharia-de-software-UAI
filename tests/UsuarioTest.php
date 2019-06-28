@@ -1,5 +1,6 @@
 <?php
 
+include_once './src/Modelo/Usuario.php';
 use PHPUnit\Framework\TestCase;
 
 class UsuarioTest extends TestCase {

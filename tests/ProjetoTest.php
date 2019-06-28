@@ -1,5 +1,6 @@
 <?php
 
+include_once './src/Modelo/Projeto.php';
 use PHPUnit\Framework\TestCase;
 
 class ProjetoTest extends TestCase {
@@ -19,7 +20,7 @@ class ProjetoTest extends TestCase {
 		$this->assertEquals("fonte", $projeto->getFonte());
 		$this->assertEquals("autor", $projeto->getAutor());
 		$this->assertEquals("sinopse", $projeto->getSinopse());
-		$this->assertEquals("genero", $projeto->getGenero());
+		$this->assertEquals("genero", $projeto->getGeneros());
 		$this->assertEquals(100.00, $projeto->getFundo());
 		$this->assertEquals("1/1/1", $projeto->getDataDeCriacao());
 	}
