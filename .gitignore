@@ -3,3 +3,6 @@
 
 #arquivos de de atalho do windows
 *.atalho
+
+#arquivos de cache do phpunit
+*.cache
