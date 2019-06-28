@@ -1,9 +1,9 @@
 <?php
 
 
-/**
- * TODO Auto-generated comment.
- */
+/***
+ * Controle de tudo
+ *  */
 class Controle {
     public $usuario;
     public $projeto;

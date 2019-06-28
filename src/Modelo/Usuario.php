@@ -1,6 +1,16 @@
 <?php
 
+/**
+ * Classe modelo referente ao Usuario
+ *  */
 class Usuario {
+    
+    //atributos
+    private $id;
+    private $cpf;
+    private $email;
+    private $nome;
+    private $senha;
 
     /**
     * Construtor apenas seta os valores dos atributos com os valores passado
@@ -13,12 +23,6 @@ class Usuario {
         $this->senha = $senha;
     }
     
-    //atributos
-    private $id;
-    private $cpf;
-    private $email;
-    private $nome;
-    private $senha;
 
     /***
      * Muda o id do objeto Usuário em questão

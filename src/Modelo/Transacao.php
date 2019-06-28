@@ -1,7 +1,7 @@
 <?php
 
 /***
-* Classse responsável pela transação do banco de dados
+* Classe responsável pela transação do banco de dados
 */
 class Transacao {
 

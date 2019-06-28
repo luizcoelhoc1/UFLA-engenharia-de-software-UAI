@@ -3,7 +3,7 @@
 class Navegacao {
 
     /**
-     * TODO Auto-generated comment.
+     * Retorna string contendo HTML do navbar que um usuário sem ter feito login verá
      */
     public function navegacaoAnonimo() {
         $navegacao = new Template(__DIR__ . "/html/navegacao/anonimo.html");
@@ -21,7 +21,7 @@ class Navegacao {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * Retorna string contendo HTML do navbar que o administrador verá
      */
     public function navegacaoAdministrador($administrador) {
         $navegacao = new Template(__DIR__ . "/html/navegacao/administrador.html");
@@ -30,7 +30,7 @@ class Navegacao {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * Retorna string contendo HTML do navbar que o funcionario verá
      */
     public function navegacaoFuncionario($funcionario) {
         $navegacao = new Template(__DIR__ . "/html/navegacao/administrador.html");

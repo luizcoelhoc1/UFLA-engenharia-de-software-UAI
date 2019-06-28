@@ -1,6 +1,7 @@
 <?php
+
 /**
- * TODO Auto-generated comment.
- */
+ * Classe modelo referente ao Funcionario
+ *  */
 class Funcionario extends Usuario {
 }

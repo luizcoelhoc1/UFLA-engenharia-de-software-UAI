@@ -1,8 +1,7 @@
 <?php
 
 class ControleUsuario {
-    
-    /***
+    /*     * *
      * Seta cookie do login se existir conta
      */
     public function realizarLogin($email, $senha) {
@@ -20,10 +19,14 @@ class ControleUsuario {
         }
     }
 
+    /*     * *
+     * Adicina à carteira de um financiador dado seu id por parametro, uma quantidade de dinheiro 
+     * */
     public function adicionarDinheiroCarteira($id, $quantidade) {
         $conexao = Transacao::get();
+
+        // Persiste
         $resultado = $conexao->query($sql = "UPDATE financiador set carteira = carteira+$quantidade where idUsuario = $id");
-        
         if ($resultado->rowCount()) {
             return true;
         } else {
@@ -31,8 +34,8 @@ class ControleUsuario {
         }
     }
 
-    /***
-     * função auxiliar do get tipo usuário para verificar o tipo de usuário
+    /*     * *
+     * Função auxiliar do get tipo usuário para verificar o tipo de usuário
      */
     private function isTipoUsuario($tipo, $id) {
         $conexao = Transacao::get();
@@ -47,7 +50,6 @@ class ControleUsuario {
     /*     * *
      * Retorna o tipo de usuário do id passado ou null caso não seja de nenhum tipo especificado
      */
-
     public function getTipoUsuario($id) {
         $tipos = array("financiador", "administrador", "funcionario");
         foreach ($tipos as $tipo) {
@@ -62,7 +64,6 @@ class ControleUsuario {
      * Cadastra novo funcionário e realiza login caso seja criado com sucesso
      * Retorna true para caso todos os procedimentos sejam executados com sucesso e false caso contrário
      */
-
     public function novoFinanciador($nome, $cpf, $email, $senha) {
         $conexao = Transacao::get();
 
@@ -82,7 +83,6 @@ class ControleUsuario {
     /*     * *
      * Muda dos dados do usuário passado por parâmetro e fixa no banco de dados
      */
-
     public function setUsuario($usuario) {
         $conexao = Transacao::get();
 
@@ -114,7 +114,7 @@ class ControleUsuario {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * Retorna uma instancia de Administrador dado um ID
      */
     public function getAdministrador($id) {
         $conexao = Transacao::get();
@@ -127,7 +127,7 @@ class ControleUsuario {
     }
 
     /**
-     * retorna um objeto Financiador com os dados do Financiador com o id do id passado por parâmetro
+     * Retorna um objeto Financiador com os dados do Financiador com o id do id passado por parâmetro
      */
     public function getFinanciador($id) {
         $conexao = Transacao::get();
@@ -142,7 +142,6 @@ class ControleUsuario {
     /*     * *
      * retorna um usuário com o id passado ou null caso não exista no banco de dados
      */
-
     public function getUsuario($id) {
         $conexao = Transacao::get();
         $resposta = $conexao->query("select * from usuario where id = '$id'");
@@ -154,17 +153,13 @@ class ControleUsuario {
         return new Usuario($std->id, $std->cpf, $std->email, $std->nome, $std->senha);
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
     public function getFuncionarios() {
-        return null;
+        throw new Exception("Metodo consultar funcionarios não implementado ainda!");
     }
 
     /*     * *
      * Deleta a conta do banco de dados com o id passado por parâmetro
      */
-
     public function deletarConta($id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("delete from usuario where id = '$id'");
@@ -174,7 +169,6 @@ class ControleUsuario {
     /*     * *
      * Desloga
      */
-
     public function deslogar() {
         unset($_COOKIE["uaiid"]);
         setcookie("uaiid", null, time() - 1);

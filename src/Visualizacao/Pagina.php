@@ -1,10 +1,18 @@
 <?php
 
+/**
+ * Classe Responsável por fazer a ligação entre o controle e qual página o usuário verá
+ *  */
 class Pagina {
 
+    // Atributo que controla 
     private $controle;
+    // Array contendo as propriedades relevantes para receber atributos posts
     private $atributosProjeto;
 
+    /**
+     * Construtor 
+     *  */
     public function __construct() {
         $this->controle = new Controle();
         $this->atributosProjeto = ["nome", "generos", "autor", "fonte", "sinopse"];
@@ -15,12 +23,12 @@ class Pagina {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * Metodo monta a página de projeto 
      */
     public function projeto() {
         $pagina = new Template(__DIR__ . "/html/projeto/index.html");
 
-        //get tipo da pagina
+        // Define tipoPagina
         if (isset($_COOKIE["uaiid"])) {
             $tipoPagina = $this->controle->usuario->getTipoUsuario($_COOKIE["uaiid"]);
         } else {
@@ -41,7 +49,7 @@ class Pagina {
             $pagina->set("msg", "");
         }
 
-        // projetos
+        // Projetos
         $projetos = $this->controle->projeto->getProjetos();
         if (count($projetos) == 0) {
             $semProjetos = new Template(__DIR__ . "/html/projeto/semProjetos.html");
@@ -57,16 +65,19 @@ class Pagina {
             $pagina->set("projetos", $projetosHTML);
         }
 
-        // JavaScript para o ADM
-        $pagina->set("scriptADM", ($tipoPagina == "Administrador") ? '<script src="Visualizacao/javascript/adm.js"></script>' : "");
-
         return $pagina->output();
     }
 
+    /**
+     * Método monta a página de histórico 
+     */
     public function historico() {
         $pagina = new Template(__DIR__ . "/html/historico/index.html");
+
+        //navegação
         $pagina->set("navegacao", $this->navegacao());
-        
+
+        //monta os históricos
         $historicos = $this->controle->projeto->getHistoricos();
         $historicosSTR = "";
         foreach ($historicos as $historico) {
@@ -77,20 +88,28 @@ class Pagina {
             $historicosSTR .= $historicoTMPLT->output();
         }
         $pagina->set("historicos", $historicosSTR);
-        
+
         return $pagina->output();
     }
 
+    /**
+     * Metodo responsável por fazer a chamada do metodo excluir projetos de controle
+     *  */
     public function excluirProjeto() {
+        // Verifica se foi passado algum id
         if (!isset($_GET["id"])) {
             throw new Exception("Nenhum Id de projeto foi passado para ser excluido");
         }
+
+        // Exclui o projeto
         $excluiu = $this->controle->projeto->excluirProjeto($_GET["id"]);
         if (!$excluiu) {
             throw new Exception("Não foi possível excluir nenhum projeto!");
         }
 
+        // Seta mensagem de sucesso, caso não tenha passado pelo throw
         Mensagem::set("Projeto excluido com sucesso", Mensagem::SUCCESSS);
+
         return $this->homePage();
     }
 
@@ -124,16 +143,16 @@ class Pagina {
         return $pagina->output();
     }
 
-    /*     * *
+    /**
      * Retorna a página de cadastrar-se ou cadastra um novo financiador verificando se existe POST ou não
      */
-
     public function cadastrarSe() {
         //Caso exista post (usuário clicou no botão de cadastrar-se)
         if (isset($_POST["nome"]) && isset($_POST["cpf"]) && isset($_POST["email"]) && isset($_POST["senha"])) {
             $pagina = new Template(__DIR__ . "/html/login/cadastrarSe.html");
             if ($this->controle->usuario->novoFinanciador($_POST["nome"], $_POST["cpf"], $_POST["email"], $_POST["senha"])) {
-                echo "novo usuario feito";
+                Mensagem::set("Olá, seja muito bem-vindo!", Mensagem::SUCCESSS);
+                return $this->homePage();
             } else {
                 $pagina = new Template(__DIR__ . "/html/login/cadastrarSe.html");
                 foreach ($_POST as $key => $value) {
@@ -152,11 +171,9 @@ class Pagina {
         }
         return $pagina->output();
     }
-
-    public function devolucao() {
-        
-    }
-
+     /**
+     * Metodo responsável de fazer a chamada de doação de controle
+     *  */
     public function doar() {
         if (isSetPost(["doacao", "idProjeto"])) {
             $doado = $this->controle->projeto->doar($_POST["idProjeto"], $_COOKIE["uaiid"], $_POST["doacao"]);
@@ -170,10 +187,12 @@ class Pagina {
     }
 
     /**
-     * TODO Auto-generated comment.
+     * Metodo responsável pela página de adicionar dinheiro a carteira e fazer a chamada de doação do controle
      */
     public function adicionarDinheiroCarteira() {
         $pagina = new Template(__DIR__ . "/html/carteira/index.html");
+        
+        // Verifica post 
         if (isset($_POST["carteira"])) {
             $adicionado = $this->controle->usuario->adicionarDinheiroCarteira($_COOKIE["uaiid"], $_POST["carteira"]);
             if ($adicionado) {
@@ -183,6 +202,8 @@ class Pagina {
                 $pagina->set("msg", "Não foi possível adicionar");
             }
         }
+        
+        //Monta a pagina
         $pagina->set("navegacao", $this->navegacao());
         $financiador = $this->controle->usuario->getFinanciador($_COOKIE["uaiid"]);
         $pagina->set("carteira", $financiador->getCarteira());
@@ -190,27 +211,27 @@ class Pagina {
         return $pagina->output();
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
+    
     public function criarContas() {
-        
+        throw new Exception("MetodoCriar Contas ainda não implementado");
     }
 
+
     /**
-     * TODO Auto-generated comment.
-     */
+     * Metodo responsável por criar a página HTML de projeto e chamar a criação de metodo do controle
+    *  */
     public function criarProjeto() {
 
         $pagina = new Template(__DIR__ . "/html/projeto/criarProjeto.html");
 
-
+        // Faz a analise se cria ou somente constroi a página
         if (isSetPost($this->atributosProjeto)) {
+            //cria projeto
             $novoProjeto = Projeto::newByPost();
             $criou = $this->controle->projeto->criarProjeto($novoProjeto);
             if ($criou) {
                 Mensagem::set("Inserido com sucesso o novo projeto", Mensagem::SUCCESSS);
-                return $this->projeto();
+                return $this->homePage();
             } else {
                 Mensagem::set("Não foi possível criar o projeto", Mensagem::FAILURE);
                 foreach ($this->atributosProjeto as $atr) {
@@ -223,41 +244,45 @@ class Pagina {
             }
         }
 
+        // Navegação
         $pagina->set("navegacao", $this->navegacao());
 
         return $pagina->output();
     }
 
-    /**
-     * TODO Auto-generated comment.
-     */
     public function designarFuncionario() {
-        return "";
+        throw new Exception("Metodo ainda não implementado");
     }
 
+    
+    /**
+     * Metodo responsável por chamar o controle para edição de projeto
+     *  */
     public function editarProjeto() {
         if (isSetPost($this->atributosProjeto) && isset($_POST["id"])) {
             $projeto = $this->controle->projeto->getProjeto($_POST["id"]);
-
+            
+            //altera os atributos
             foreach ($this->atributosProjeto as $atr) {
                 $set = "set" . ucfirst($atr);
                 $projeto->$set($_POST[$atr]);
             }
-
+            
+            //edita no banco de dados
             $editado = $this->controle->projeto->setProjeto($projeto);
             if ($editado) {
                 Mensagem::set("Editado com sucesso", Mensagem::SUCCESSS);
             } else {
                 Mensagem::set("Não foi possível editar!", Mensagem::FAILURE);
             }
+            
             return $this->homePage();
         }
     }
 
-    /*     * *
+    /**
      * Monta a navegação da pagina baseado no cookie uaiid
-     */
-
+     *  */
     public function navegacao($tipo = null) {
         $navegacao = new Template(__DIR__ . "/html/navegacao/navegacao.html");
 
@@ -284,10 +309,9 @@ class Pagina {
         return $navegacao->output();
     }
 
-    /*     * *
+    /**
      * Retorna a página de edição de dados pessoais e realiza as mudanças dependendo se existe ou não POST
      */
-
     public function editarDadosPessoais() {
         if (isset($_COOKIE["uaiid"])) {
             $pagina = new Template(__DIR__ . "/html/telasComuns/perfil.html");
