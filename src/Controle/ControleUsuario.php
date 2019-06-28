@@ -1,10 +1,10 @@
 <?php
 
 class ControleUsuario {
-    /*     * *
+    
+    /***
      * Seta cookie do login se existir conta
      */
-
     public function realizarLogin($email, $senha) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select id from usuario where email = '$email' and senha = '$senha'");
@@ -31,10 +31,9 @@ class ControleUsuario {
         }
     }
 
-    /*     * *
+    /***
      * função auxiliar do get tipo usuário para verificar o tipo de usuário
      */
-
     private function isTipoUsuario($tipo, $id) {
         $conexao = Transacao::get();
         $resultado = $conexao->query("select idUsuario from $tipo where idUsuario = '$id'");

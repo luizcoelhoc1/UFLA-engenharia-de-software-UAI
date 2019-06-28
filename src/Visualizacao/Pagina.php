@@ -63,6 +63,24 @@ class Pagina {
         return $pagina->output();
     }
 
+    public function historico() {
+        $pagina = new Template(__DIR__ . "/html/historico/index.html");
+        $pagina->set("navegacao", $this->navegacao());
+        
+        $historicos = $this->controle->projeto->getHistoricos();
+        $historicosSTR = "";
+        foreach ($historicos as $historico) {
+            $historicoTMPLT = new Template(__DIR__ . "/html/historico/historico.html");
+            foreach ($historico as $atributes => $valores) {
+                $historicoTMPLT->set($atributes, $valores);
+            }
+            $historicosSTR .= $historicoTMPLT->output();
+        }
+        $pagina->set("historicos", $historicosSTR);
+        
+        return $pagina->output();
+    }
+
     public function excluirProjeto() {
         if (!isset($_GET["id"])) {
             throw new Exception("Nenhum Id de projeto foi passado para ser excluido");
@@ -135,12 +153,10 @@ class Pagina {
         return $pagina->output();
     }
 
-    
     public function devolucao() {
         
-        
     }
-    
+
     public function doar() {
         if (isSetPost(["doacao", "idProjeto"])) {
             $doado = $this->controle->projeto->doar($_POST["idProjeto"], $_COOKIE["uaiid"], $_POST["doacao"]);

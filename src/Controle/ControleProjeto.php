@@ -16,9 +16,16 @@ class ControleProjeto {
         if ($financiador->carteira >= $quantidade) {
             $conexao->query("UPDATE projeto set fundo=fundo+$quantidade where id = $idProjeto");
             $conexao->query("UPDATE financiador set carteira=carteira-$quantidade where idUsuario = $idFinanciador");
-            $conexao->query("INSERT INTO `historicodoacao`"
-                    . "(`idProjeto`, `idFinanciador`, `quantia`)"
-                    . " VALUES ('$idProjeto', '$idFinanciador', $quantidade)");
+            $historicoExiste = $conexao->query("select * from historicodoacao where idProjeto = $idProjeto and idFinanciador = $idFinanciador");
+            if ((boolean) $historicoExiste->rowCount() == 1) {
+                $conexao->query("UPDATE `historicodoacao` "
+                        . "SET `quantia`=quantia+$quantidade "
+                        . "WHERE idProjeto=$idProjeto and idFinanciador=$idFinanciador");
+            } else {
+                $conexao->query("INSERT INTO `historicodoacao`"
+                        . "(`idProjeto`, `idFinanciador`, `quantia`)"
+                        . " VALUES ('$idProjeto', '$idFinanciador', $quantidade)");
+            }
         } else {
             throw new Exception("Dinheiro insuficiente");
         }
@@ -51,6 +58,26 @@ class ControleProjeto {
             return true;
         }
         return false;
+    }
+
+    public function getHistoricos() {
+        $conexao = Transacao::get();
+        $resultado = $conexao->query("SELECT "
+                . "projeto.nome as projeto, "
+                . "usuario.nome as financiador, "
+                . "historicodoacao.quantia "
+                . " FROM `historicodoacao` "
+                . "inner join projeto on projeto.id = historicodoacao.idProjeto "
+                . "inner join usuario on usuario.id = historicodoacao.idFinanciador "
+                . "");
+
+        $historico = $resultado->fetchObject();
+        $retorno = array();
+        while ($historico != null) {
+            $retorno[] = $historico;
+            $historico = $resultado->fetchObject();
+        }
+        return $retorno;
     }
 
     /**
